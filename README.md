@@ -6,6 +6,7 @@ This repository grew out of a small collection of MATLAB utilities for psycholog
 
 ## Current sections
 
+- [`notion-learning-quests.html`](notion-learning-quests.html) — 中文经验网页：Notion 学习闯关的现成方案、虚构三关示意与待验证的搭建检查清单；下载后可直接在浏览器打开。
 - [`agentic-engineering/`](agentic-engineering/) — reviewing and governing AI-assisted implementation work.
 - [`research-engineering/`](research-engineering/) — reproducibility, model-fitting, evidence, and scientific-software practice.
 - [`legacy-matlab-tools/`](legacy-matlab-tools/) — the original MATLAB scripts and demos kept for continuity.

@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="先参考现成的 Notion 学习模板，再用虚构三关课程说明进度设计与待验证的搭建检查清单。">
+  <meta name="referrer" content="no-referrer">
+  <title>Notion 学习闯关：现成方案与搭建检查清单</title>
+  <style>
+    :root{color-scheme:light;--paper:#f6f4ee;--card:#fffefa;--ink:#233b33;--muted:#58665f;--line:#d7ded5;--accent:#28634b;--warn:#805713}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:1.5rem}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.8 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}main{max-width:980px;margin:auto;padding:32px 22px 48px}a{color:var(--accent);text-underline-offset:4px;overflow-wrap:anywhere}a:hover{text-decoration-thickness:2px}a:focus-visible,summary:focus-visible{outline:3px solid var(--warn);outline-offset:5px;border-radius:4px}.skip{position:absolute;left:16px;top:-80px;padding:10px;background:white;z-index:2}.skip:focus{top:12px}.eyebrow,.number{font-size:13px;letter-spacing:.12em;font-weight:700;color:var(--accent)}h1{font-size:clamp(28px,5vw,43px);line-height:1.35;letter-spacing:-.025em;margin:12px 0 18px;max-width:800px}h2{font-size:27px;line-height:1.4;margin:0 0 16px}h3{font-size:20px;line-height:1.5;margin:8px 0}p{margin:10px 0}.lead{font-size:19px;max-width:750px}.muted,small{color:var(--muted)}.meta{font-size:14px}.notice{padding:16px 20px;border:1px solid #e1ca95;border-left:4px solid #ad7a26;border-radius:8px;background:#fff7e5;margin:24px 0}.notice strong{color:var(--warn)}nav{display:flex;gap:8px 20px;flex-wrap:wrap;margin:26px 0 34px;padding:16px 0;border-block:1px solid var(--line)}nav a{min-height:44px;display:inline-flex;align-items:center;font-size:15px}section{margin-top:44px}section>p{max-width:820px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:21px;min-width:0}.card p{font-size:16px}.tag{display:inline-block;padding:3px 9px;background:#e9f0e7;border-radius:5px;font-size:13px;font-weight:650}.tag.pending{background:#f8edda;color:var(--warn)}.refs h3{margin-top:0}.refs .meta{display:block;margin-top:12px}blockquote{margin:0;padding:23px 25px;border-left:4px solid var(--accent);background:#edf1e9;border-radius:0 10px 10px 0}blockquote p{margin:0}.demo{padding:24px;background:#eaf0e7;border-radius:14px;border:1px solid var(--line)}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}.metric{padding:18px;background:var(--card);border-radius:9px}.metric strong{display:block;font-size:27px;line-height:1.5}.bar{height:10px;border-radius:10px;background:#e3e8df;overflow:hidden;margin:12px 0}.bar span{display:block;width:33.3333%;height:100%;background:var(--accent)}.quests{list-style:none;padding:0;margin:24px 0 0;display:grid;gap:12px}.quests li{background:var(--card);border:1px solid var(--line);padding:18px;border-radius:9px}.quests .meta{display:flex;flex-wrap:wrap;gap:8px 14px}.quests h3{margin:6px 0}.actions{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 10px}.mock{padding:7px 12px;border:1px dashed #839480;border-radius:6px;font-size:14px;background:#f7f8f2}.table-wrap{overflow-x:auto;margin:20px 0;border:1px solid var(--line);border-radius:10px}table{width:100%;border-collapse:collapse;background:var(--card);font-size:16px;text-align:left}th,td{padding:15px;vertical-align:top;border-bottom:1px solid var(--line)}th{background:#edf1e9;font-weight:650}tbody tr:last-child td{border-bottom:0}th:first-child,td:first-child{width:20%}ul,ol{padding-left:1.5em}li+li{margin-top:9px}code{font: .9em/1.5 ui-monospace,SFMono-Regular,monospace;padding:2px 5px;background:#edf1e9;border-radius:4px;overflow-wrap:anywhere}details{background:var(--card);border:1px solid var(--line);border-radius:10px;margin-top:12px;padding:0 20px}summary{cursor:pointer;font-weight:650;padding:17px 0;min-height:44px}details ul{margin:0 0 20px}footer{margin-top:42px;padding-top:22px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}.back{display:inline-block;margin-top:12px;min-height:44px}
+    @media(max-width:640px){main{padding:24px 18px 32px}.grid,.metrics{grid-template-columns:1fr}section{margin-top:34px}h2{font-size:24px}.card,.demo{padding:18px}blockquote{padding:20px}.notice{padding:14px 16px}th,td{padding:12px}table{font-size:14px}th:first-child,td:first-child{width:25%}body{font-size:16px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}@media print{body{background:white;font-size:11pt}main{padding:0}nav,.skip,.back{display:none}.card,.quests li,details{break-inside:avoid}a{color:inherit}.grid{grid-template-columns:1fr 1fr}}
+  </style>
+</head>
+<body>
+<a class="skip" href="#references">跳到正文</a>
+<main id="top">
+  <header>
+    <div class="eyebrow">经验笔记 · 学习工具设计</div>
+    <h1>Notion 学习闯关：<br>现成方案与搭建检查清单</h1>
+    <p class="lead">先看看别人已经做好的方案，再把眼前的学习拆成一小关。这里记录参考来源、最小配置方向，以及真正使用前需要核对的事项。</p>
+    <p class="meta">资料核对日期：<time datetime="2026-10-14">2026-10-14</time> · 价格与领取条件可能变化</p>
+    <aside class="notice" aria-label="验证状态">
+      <strong>待验证设计 · Notion 按钮仍在验证中</strong>
+      <p>本文是设计笔记与静态示意，未接入 Notion。下方进度和按钮文案不代表 Notion 功能已通过验收；参考模板也未领取或实测。</p>
+    </aside>
+  </header>
+  <nav aria-label="目录">
+    <a href="#references">01 现成方案</a><a href="#reflection">02 我的想法</a><a href="#example">03 三关示意</a><a href="#setup">04 最小配置</a><a href="#checks">05 验收清单</a><a href="#credits">06 来源与版权</a>
+  </nav>
+
+  <section id="references" aria-labelledby="references-title">
+    <div class="number">01 / 先找现成方案</div>
+    <h2 id="references-title">已有先例，先引用再搭建</h2>
+    <p>学习计划、课程跟踪和游戏化任务已有成熟做法。我把这些方案当作参考入口，不称首创，也不把商品介绍当作使用体验。先看公开介绍是否贴合需求，能复用时再依作者条件获取。</p>
+    <div class="grid refs">
+      <article class="card">
+        <h3><a href="https://www.notion.com/en-gb/templates/learning-sprints">Learning Sprints ↗</a></h3>
+        <p>参考学习冲刺的组织思路，把一次启动的范围缩小。</p>
+        <span class="tag">作者说明免费</span><span class="meta">未领取；免费说明不等于我已验证领取流程。</span>
+      </article>
+      <article class="card">
+        <h3><a href="https://www.notion.com/templates/student-gamified-planner">Gamified Student Planner ↗</a></h3>
+        <p>参考游戏化学习规划的表达方式，看看任务如何呈现。</p>
+        <span class="tag">关联商品卡标免费</span><span class="meta">未实测；商品卡标价不代表当前获取流程已核实。</span>
+      </article>
+      <article class="card">
+        <h3><a href="https://www.notion.com/templates/course-planner-course-tracker">Course Planner / Course Tracker ↗</a></h3>
+        <p>参考课程组织与进度跟踪的方向。</p>
+        <span class="tag">公开标价 US$15</span><span class="meta">本方案无需购买；未购买、未实测。</span>
+      </article>
+      <article class="card">
+        <h3><a href="https://www.notion.com/templates/learning-quset">Learning Quest ↗</a></h3>
+        <p>作为学习闯关形式的已有先例。</p>
+        <span class="tag pending">领取条件未核</span><span class="meta">原页面拼作 “Learning Quset”；保留原链接，未领取或实测。</span>
+      </article>
+    </div>
+    <p class="meta">上述是来源与设计参考，不是模板评测。后面的检查项目用于核验自己的配置，不表示这些模板存在缺陷。</p>
+  </section>
+
+  <section id="reflection" aria-labelledby="reflection-title">
+    <div class="number">02 / 为什么想这样做</div>
+    <h2 id="reflection-title">先帮自己启动一小段</h2>
+    <blockquote><p>笑死，这多少有点“差生文具多”。但我现在确实有点没招了：有些任务，就是很难一下子提起那么大的劲。动机管理当然重要，只是那是另一回事。我想把这种游戏化的形式当作一个应急办法，在动机还没完全建立的时候，先帮助自己启动、做完眼前的一小段。</p></blockquote>
+    <p>这是一段个人感想，不是学习效果证据。先给下一步一个明确的结束点，再决定要不要继续。想听背景音乐时，用手机自行播放即可。</p>
+  </section>
+
+  <section id="example" aria-labelledby="example-title">
+    <div class="number">03 / 独立虚构示例</div>
+    <h2 id="example-title">读懂一张地图</h2>
+    <p>以下课程、任务与状态均为独立虚构的示意。每关约 15 分钟是便于搭建的设计取值，可以调整；它不是科学上的最优时长。</p>
+    <div class="demo">
+      <span class="tag pending">静态示意 · 不能登记进度</span>
+      <div class="metrics">
+        <div class="metric"><div class="meta">浏览位置 · 示意</div><strong>看到第 3/3 关</strong><p>只表示当前打开了第三关。上一关、下一关仅负责导航。</p></div>
+        <div class="metric"><div class="meta">完成进度 · 示意</div><strong>完成 1/3，约 33%</strong><div class="bar" aria-hidden="true"><span></span></div><p>只有一关达到了完成标准。打开最后一关不等于完成整门课程。</p></div>
+      </div>
+      <ol class="quests">
+        <li><div class="meta"><span>第 1 关 · 约 15 分钟</span><span class="tag">已完成（示意）</span></div><h3>认识方向</h3><p><strong>完成标准：</strong>在一张自绘简图上标出北、东、南、西，并用一句话说明两个地点的相对方向。</p></li>
+        <li><div class="meta"><span>第 2 关 · 约 15 分钟</span><span class="tag pending">未完成（示意）</span></div><h3>认识图例</h3><p><strong>完成标准：</strong>在自绘简图中设计三种符号，写出各自的含义，并用这些符号找到对应地点。</p></li>
+        <li><div class="meta"><span>第 3 关 · 约 15 分钟</span><span class="tag pending">未完成 · 当前浏览（示意）</span></div><h3>解释路线</h3><p><strong>完成标准：</strong>用方向和图例说明从起点到终点的路线，写清转向与经过的地标，使别人能按说明复述路线。</p><div class="actions" aria-label="本关操作文案示意，非可用按钮"><span class="mock">完成本关（文案示意）</span><span class="mock">撤销完成（文案示意）</span></div><p class="meta">这两项仅展示预期操作，不可点击，也不会修改任何 Notion 数据。</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="setup" aria-labelledby="setup-title">
+    <div class="number">04 / 待验证的最小配置</div>
+    <h2 id="setup-title">两个数据库，一份可重算的进度</h2>
+    <p>拟用 Notion 的课程与关卡数据库，通过关联和汇总按课程统计进度。原生按钮可作为操作入口；具体目标行、过滤条件、套餐和权限仍需在实际工作区验证。官方能力说明见 <a href="https://www.notion.com/help/buttons">页面按钮</a>、<a href="https://www.notion.com/help/database-buttons">数据库按钮</a>与 <a href="https://www.notion.com/help/relations-and-rollups">关联和汇总</a>。</p>
+    <div class="table-wrap"><table>
+      <caption class="meta" style="padding:12px;text-align:left">建议字段与职责 · 配置设计，尚未完成 Notion 验收</caption>
+      <thead><tr><th scope="col">数据库</th><th scope="col">最小字段</th><th scope="col">职责</th></tr></thead>
+      <tbody><tr><th scope="row">课程</th><td>名称、关联关卡、总关数、完成关数、完成率</td><td>只统计关联到本课程的关卡。</td></tr><tr><th scope="row">关卡</th><td>名称、所属课程、顺序、状态、完成标准；正文存学习内容</td><td>每关独立保存状态；建议每关只归属一门课程。</td></tr></tbody>
+    </table></div>
+    <ol>
+      <li><strong>先定义“完成”。</strong>每关写清可检查的产出。浏览、翻页和停留时间都不自动计为完成。</li>
+      <li><strong>再设关联与汇总。</strong>例如将已完成关卡映射为 1，其余已登记状态为 0，再汇总数量与合计；完成率按“完成关数 ÷ 本课程总关数”重算。总关数为 0 时显示“暂无关卡”，避免除以零。</li>
+      <li><strong>完成与撤销直接设状态。</strong>“完成本关”拟将目标关卡设为“已完成”，“撤销完成”拟设为“未完成”。不盲目对课程计数 <code>+1</code> 或 <code>-1</code>；重复操作应保持同一结果，即幂等。</li>
+      <li><strong>入口放在本关正文附近。</strong>可尝试本关按钮，或仅显示本关记录的紧凑关联视图。需要核对它是否确实只修改当前关卡，不能只凭按钮外观认定配置正确。</li>
+      <li><strong>导航与状态分开。</strong>上一关、下一关只打开相应页面；状态不随导航改变。未知进度可单列为“未登记”，不能据此推定已经完成。</li>
+    </ol>
+    <p class="meta">建议同时显示“未登记关数”。未登记关卡仍计入总关数；它们尚未计为完成，不等于已经确认未完成。这样的显示口径也要一并验收。</p>
+  </section>
+
+  <section id="checks" aria-labelledby="checks-title">
+    <div class="number">05 / 实际使用前</div>
+    <h2 id="checks-title">验收清单：目前全部待核</h2>
+    <p>需要在真实 Notion 配置中逐项记录结果。网页上的静态示意或浏览器排版检查，不能代替这些功能测试，也不能据此评价参考模板的质量。</p>
+    <details open><summary>状态操作与重复点击 · 待核</summary><ul><li>完成：未完成关卡变为已完成，本课程完成数增加一。</li><li>重复完成：再次点击后，完成数保持不变。</li><li>撤销：已完成关卡变为未完成，本课程完成数减少一。</li><li>重复撤销：再次点击后，完成数保持不变，不出现负数。</li></ul></details>
+    <details><summary>课程隔离与分母变化 · 待核</summary><ul><li>课程隔离：修改一门课程的关卡，其他课程进度不变。</li><li>增删关卡：总关数跟随关联关卡变化，完成数与完成率按保留的状态重算。</li><li>空课程：没有关卡时显示“暂无关卡”，不报错，不展示虚假的 100%。</li><li>未登记：数量与显示口径正确，不把未知状态当成完成。</li></ul></details>
+    <details><summary>持久化、手机和权限 · 待核</summary><ul><li>重新打开：关闭页面后再打开，完成状态仍保留，统计一致。</li><li>手机易用：正文和本关操作容易找到，目标可点准，导航不会误改状态。</li><li>权限：在预期使用者权限下验证可查看、可操作的范围；无权修改时不会误报成功。</li></ul></details>
+  </section>
+
+  <section id="credits" aria-labelledby="credits-title">
+    <div class="number">06 / 来源与版权</div>
+    <h2 id="credits-title">引用入口，保留边界</h2>
+    <p>成熟方案请直接查看上方原链接。本文不转载模板源码、截图、全文或版权素材；虚构课程和静态示意独立编写。</p>
+    <p><strong>免费不等于开源，也不等于获准再分发。</strong>使用或改作模板前，应查看作者许可与 <a href="https://www.notion.com/help/template-gallery-guidelines-and-terms">Notion 模板市场指南与条款</a>。本仓库的许可不替第三方模板授予权利。</p>
+    <p class="meta">核对日期为 2026-10-14。标价、领取条件与产品能力可能变化；以原页面和实际工作区为准。本文只记录设计方向，不宣称已试用模板、已完成按钮验收或已证明学习效果。</p>
+  </section>
+  <footer>
+    <p>静态经验网页 · 无跟踪、无后端、无凭据 · 不接入 Notion</p>
+    <a class="back" href="#top">返回顶部 ↑</a>
+  </footer>
+</main>
+</body>
+</html>
