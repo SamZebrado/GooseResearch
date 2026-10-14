@@ -5,7 +5,7 @@ SZ is my name initials.
 # Folder Structure
 ## /FileImport/
 **content = szCSVRead(filename)**: an enhanced version of the csvread function, it reads csv file and give output as cells of string (just as what you can get using [~,~,raw] = xlsread(filename).
-** CellOut = fcCellLine2Cell(CellLine) **: This function parses {{line1};{line2}} as {line1;line2} (each of line1, line2, ... is a 1*n cell).  
+** CellOut = fcCellLine2Cell(CellLine) **: This function parses &#123;&#123;line1};{line2}} as {line1;line2} (each of line1, line2, ... is a 1*n cell).  
 **fcReadFileByLine**: reads file line-by-line and return the data in cell of string lines.  
 **fcExportCellstr2CSV**: prints cellstring into specified file using fprintf(fid,'%s').  
 ## /For-PTB-Based-Experiments/
