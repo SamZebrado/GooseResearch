@@ -50,3 +50,9 @@ AI 辅助工作有时会不断汇报、核对和等待，却难以看出整体�
 - [把审查绑定到准确版本](bind-reviews-to-an-exact-revision.md)
 - [记录验收路径实际检查了什么](record-what-the-acceptance-path-exercised.md)
 - [公开内容审查要求](../PUBLICATION_POLICY.md)
+
+## 其他人是怎么做的
+
+OpenAI 的 [Best practices：Improve reliability with testing and review](https://learn.chatgpt.com/docs/learn/best-practices#improve-reliability-with-testing-and-review) 建议把完成条件落实为相关测试、lint、类型检查与差异审查，并确认最终行为符合请求。这是提高可验证性的工程建议，不表示测试通过就没有错误，也没有量化节省了多少时间。
+
+每周更新：每周回顾来源，有值得补充的内容才更新，无新增时保留。最近核对：2026-11-07（已核正文）。外部参考不代表本站已验证效果。

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="把 Codex 与 DeepSeek 连通、Dots 云端分工、对话交接、自查与常见问题放在一个入口，遇到新问题就继续补充。方法与当前能力边界分开写。"><title>AI 使用经验 · GooseResearch</title><link rel="stylesheet" href="styles.css"></head><body id="top"><header><a href="../index.html#using">← GooseResearch 使用中</a><a href="https://github.com/SamZebrado/GooseResearch">查看仓库 ↗</a></header><main><p class="eyebrow">GOOSERESEARCH / 持续积累</p><h1>AI 使用经验</h1><p class="intro">把 Codex 与 DeepSeek 连通、Dots 云端分工、对话交接、自查与常见问题放在一个入口，遇到新问题就继续补充。方法与当前能力边界分开写。</p><nav class="toc" aria-label="本页目录"><a href="#connection">模型连通</a><a href="#cloud">云端分工</a><a href="#handoff">对话交接</a><a href="#review">定期自查</a><a href="#faq">常见问题</a><a href="#log">记录模板</a></nav>
+<section id="connection"><p class="label">01 / 连通与能力边界</p><h2>Codex 与 DeepSeek 连通</h2>
+<p>把另一种模型接入工作流时，先验证一个很小的闭环，再决定是否值得长期使用。连接成功、能找到会话、能读历史、能发起任务，以及能持续稳定运行，是不同的验收项。</p>
+<div class="note"><strong>当前记录：原型阶段。</strong>已验证经 MCP 桥接到 DSH 的 ACP 初始化与会话列表返回。原有注册仍是仅预览模式，持久接入尚未配置或验收，长期访问配置待明确批准。不能据此说 Codex 的模型已被替换，或 DeepSeek 已能稳定接管所有任务。</div>
+<h3>把已验证和未验证分开记</h3><ul>
+<li><strong>已验证：</strong>初始化与列出会话的窄范围连通测试。会话列表只证明发现能力，不证明能读到全部内容。</li>
+<li><strong>历史读取限制：</strong>当前 DSH 没有独立的只读历史接口；指定会话内容通过获准的本机日志读取，与桥本身的能力分开记录。日志不可访问时，改用用户主动提供的导出材料。</li>
+<li><strong>尚未广泛验收：</strong>接口中存在 prompt、resume、cancel 等操作，但存在接口不等于已验证其行为、权限边界、恢复能力或跨会话控制。</li>
+<li><strong>下一次验收：</strong>只用无敏感信息的测试消息，先写清目标服务、操作、费用和成功依据，再分别检查响应、超时、取消、重启与重复提交风险。</li></ul>
+<p class="muted">能力会随工具版本和环境变化。新的长期访问、凭据保存、费用或数据去向需单独确认；不要把密钥、登录状态或私人会话写入公开笔记。</p>
+</section>
+<section id="cloud"><p class="label">02 / 云端与本地分工</p><h2>哪些任务适合放在 Dots 云端</h2>
+<p>公开资料整理、通用草稿、结构设计，以及在已获准环境中可复现的测试，可以优先考虑云端。依赖本机文件、特定软件、设备或本地登录状态的工作，留在能实际访问这些条件的执行端。</p>
+<div class="grid"><div class="mini"><h3>开始前确认四件事</h3><ul><li>任务实际在哪台电脑或环境执行。</li><li>输入是否真的存在且可读。</li><li>需要哪些软件、权限与外部服务。</li><li>产物放在哪里，接收方如何打开。</li></ul></div><div class="mini"><h3>分工后的交付要求</h3><ul><li>目标、范围与验收条件写清楚。</li><li>保留版本和关键验证记录。</li><li>独立任务可以并行，互相依赖的任务明确先后。</li><li>每次交接都确认实际文件，不只给一个路径。</li></ul></div></div>
+<p>云端与本地不会因为同属一个账号就自动共享文件、会话或运行状态。复制了一段路径、看见旧截图、收到“已完成”的文字，都不足以证明新环境拿到了材料。</p>
+</section>
+<section id="handoff"><p class="label">03 / 交接</p><h2>让 Dots 协调 Codex 的工作</h2>
+<p>协调者负责说明目标、对齐范围与检查结果，执行者负责在可用环境中完成具体操作。能否读取或继续一个 Codex 对话，取决于当前工具、环境和授权，不能假设所有对话都可自动获取。</p>
+<h3>无法直接读取时，用人工交接包</h3><ol class="steps">
+<li>由原 Codex 对话在阶段结束或需要交接时，整理一份简短状态摘要和必要附件。定期整理应按双方约定的节奏进行，不必每轮重复打包。</li>
+<li>将材料放进 ZIP。摘要在前，写清目标、最新决定、已做与未做、结果位置、验证结论、阻碍和下一步；聊天记录只附必要片段，不默认导出全部历史。</li>
+<li>用户检查内容后，手动把 ZIP 拖给 Dots。发送前移除凭据、无关个人信息和未获准传输的材料；私人交接包不上传到这个公开仓库。</li>
+<li>接收后先读文件清单，再读摘要，核对生成时间、对应版本和引用附件。无法打开、内容缺失或与旧决定冲突时，先报告差异。</li>
+<li>继续前确认原任务是否还在运行、是否已有结果，避免两个执行端同时提交或重复消耗额度。交接完成后明确由谁继续。</li></ol>
+<div class="template"><strong>一个通用交接包可以包含</strong><p>交接摘要：目标、范围、决定、进度、阻碍、下一步。</p><p>产物清单：文件用途、版本、生成时间和校验值（需要时）。</p><p>验证记录：检查了什么，哪些通过、失败或未验证。</p><p>必要背景：与当前决定有关的少量对话片段或来源链接。</p></div>
+<p class="muted">这是一种由用户控制的材料交接方式，不是自动同步，也不意味着可以绕过不可读取的会话、文件或权限限制。</p>
+</section>
+<section id="review"><p class="label">04 / 自查</p><h2>定期看整体进度，也看证据</h2>
+<p>每个阶段回顾一次目标、产物、阻碍和下一动作；对持续任务，再约定适合的检查频率。已有的<a href="https://github.com/SamZebrado/GooseResearch/blob/main/agentic-engineering/ai-execution-efficiency-check.md">AI执行效率检查</a>保留在“尝试中”，这里统一收录入口，不把探索中的方法写成已验证有效。</p>
+<ul><li>先问整体交付推进了什么，再看局部动作做了多少。</li><li>完成声明应能指向文件、运行结果或实际读回，而不是只引用另一段 AI 回复。</li><li>复核绑定准确版本；文件后来变了，旧检查不能自动覆盖新内容。</li><li>区分必要验证与重复等待。没有新证据时，不循环盘点同一状态。</li><li>分开记录 <strong>PASS / FAIL / UNVERIFIED</strong>。没有检查不算通过，也不等于已证明失败。</li></ul>
+<p>相关方法：<a href="https://github.com/SamZebrado/GooseResearch/blob/main/agentic-engineering/bind-reviews-to-an-exact-revision.md">审查绑定准确版本</a>、<a href="https://github.com/SamZebrado/GooseResearch/blob/main/research-engineering/separate-implementation-from-scientific-validity.md">技术执行与科学有效性分开验收</a>。</p>
+</section>
+<section id="faq"><p class="label">05 / 常见问题</p><h2>遇到这些情况，先查什么</h2>
+<details open><summary>AI 说“完成了”，但结果找不到</summary><p>要求给出实际产物和读取或打开结果。分别记录“已安排”“已执行”“已保存”“已交付”“已验收”，不要把前一步当成后一步。</p></details>
+<details><summary>换了对话或电脑后，AI 不知道之前做了什么</summary><p>补交接摘要和最小必要材料，核对最新决定。不要把模糊回忆当成完整历史，也不要要求接收端根据一个本地路径猜文件内容。</p></details>
+<details><summary>工具超时了，可以再提交一次吗</summary><p>先查有没有在途任务、已生成产物或远端写入。只在确认未执行，或该操作可安全重复时重试；结果不确定时先核状态。</p></details>
+<details><summary>AI 经常问确认，或者反过来擅自多做</summary><p>在任务开始时明确对象、范围、数据去向、费用上限和停止条件。补齐必要授权，但不能用“以后都不用问”代替具体敏感操作的确认。</p></details>
+<details><summary>写得很顺，却可能没有依据</summary><p>让每个重要判断指向原始来源。查引文是否真实、是否支持这句话，以及推断是否超出证据。语言流畅不能替代事实核验。</p></details>
+<details><summary>两个 AI 给出了不同结论</summary><p>列出各自的前提、所用版本和证据，再定位分歧。不能用投票或语气强弱判断；未能解决的部分保留为待核。</p></details>
+</section>
+<section id="log"><p class="label">06 / 继续补充</p><h2>一条经验只记最有用的部分</h2>
+<div class="template"><p><strong>问题：</strong>遇到了什么可复现的困难？</p><p><strong>做法：</strong>哪一步改变了结果？</p><p><strong>证据与范围：</strong>实际验证到哪一步，适用于什么条件？</p><p><strong>限制：</strong>还有什么未知，哪些动作需要人决定？</p><p><strong>下次：</strong>保留一条可执行的提醒。</p></div>
+<p>AI 使用的零散经验持续追加在这一页的相应小节；同类经验合并，过时做法标明边界。写作与导师反馈另接到<a href="writing-feedback.html">原有写作脉络</a>，不混成另一套工具分类。</p>
+</section>
+<details class="other-practices" id="others-ai-use"><summary>其他人是怎么做的</summary><p>给必要上下文，也保留执行边界。OpenAI 建议用简洁说明提供目标、约束和检查方法，并区分沙箱的技术边界与审批策略。</p><p><strong>适用范围：</strong>官方工作流指导不代表所有 MCP 工具都自动受命令沙箱隔离，也不应靠放开权限来提速。</p><p><a href="https://learn.chatgpt.com/docs/learn/best-practices" target="_blank" rel="noopener noreferrer">OpenAI：Best practices ↗</a> · <a href="https://openai.com/index/running-codex-safely/" target="_blank" rel="noopener noreferrer">Running Codex safely at OpenAI ↗</a></p><p class="other-meta">每周更新：每周回顾来源，有值得补充的内容才更新，无新增时保留。最近核对：2026-11-07（已核正文）。外部参考不代表本站已验证效果。</p></details><p class="toplink"><a href="#top">回到顶部 ↑</a></p></main><footer>只记录可独立复用的方法。真实材料留在获准的私人工作区，公开示例另写。<br><a href="https://github.com/SamZebrado/GooseResearch/blob/main/PUBLICATION_POLICY.md">公开内容边界</a> · <a href="../index.html#continuous-learning">持续积累入口</a></footer></body></html>

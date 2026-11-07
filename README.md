@@ -16,6 +16,8 @@ Status describes the author's current use, not a quality certification. Public e
 
 ## Current sections
 
+- [`continuous-learning/ai-use.html`](continuous-learning/ai-use.html) — 使用中下的“持续积累”：AI 使用经验的单一入口，集中记录模型连通边界、Dots 云端分工、对话交接、自查与常见问题。
+- [`continuous-learning/writing-feedback.html`](continuous-learning/writing-feedback.html) — 接续现有写作入口：公开文章收集、导师反馈提纯与写作检查；只保留通用方法。
 - [`notion-learning-quests.html`](notion-learning-quests.html) — 中文经验网页：Notion 学习闯关的现成方案、虚构三关示意与待验证的搭建检查清单；下载后可直接在浏览器打开。
 - [`agentic-engineering/`](agentic-engineering/) — reviewing and governing AI-assisted implementation work.
 - [`research-engineering/`](research-engineering/) — reproducibility, model-fitting, evidence, and scientific-software practice.
@@ -39,3 +41,4 @@ The repository is intentionally incremental. Notes are added when a recurring le
 ## License
 
 See [`LICENSE`](LICENSE). Legacy material retains its existing history and attribution context.
+
