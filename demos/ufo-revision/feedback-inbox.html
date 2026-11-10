@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>反馈提纯与待审核序列 · 虚构外星人示例</title>
+<style>
+:root{font-family:system-ui,sans-serif;color:#243c32;background:#f7f5ee;line-height:1.7}*{box-sizing:border-box}body{margin:0}main{max-width:1020px;margin:auto;padding:30px 22px 70px}a{color:#37654b}h1{font-size:clamp(28px,5vw,44px);line-height:1.2}h2{font-size:23px}p{max-width:80ch}.eyebrow{letter-spacing:.14em;font-size:12px}.note,.card{border:1px solid #d6ddd2;background:#fffdf7;border-radius:12px;padding:20px;margin:18px 0}.note{background:#eaf0e7}.muted{color:#58685e;font-size:14px}.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}button,select{font:inherit;padding:8px 14px;border:1px solid #9aada0;background:white;border-radius:7px;color:inherit}button{cursor:pointer}button:disabled{opacity:.45;cursor:default}button:focus-visible,a:focus-visible,summary:focus-visible,select:focus-visible{outline:3px solid #ba5030;outline-offset:3px}.badge{display:inline-block;padding:3px 9px;background:#edf1e9;border-radius:5px;font-size:12px}summary{cursor:pointer;font-weight:600}.comparison{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:15px 0}.comparison>div{padding:15px;background:#f4f4ed;border-radius:8px}blockquote{margin:12px 0;padding-left:15px;border-left:3px solid #c6b58b}ol li{margin-bottom:9px}#status{min-height:1.7em}code{overflow-wrap:anywhere}footer{margin-top:35px;border-top:1px solid #ddd;padding-top:15px;font-size:13px}@media(max-width:650px){.comparison{grid-template-columns:1fr}main{padding:20px 16px}.card{padding:16px}}
+</style></head><body><main>
+<a href="index.html">← 修稿工作台</a><p class="eyebrow">FICTIONAL ALIEN EXAMPLE / REVIEW INBOX</p>
+<h1>不是再读一遍。<br>只看这次需要你判断的变化。</h1>
+<p>反馈可以先提纯成一个可审核的问题，再保留原文对照作为依据。提纯不是删除原话、代替作者决定，也不是把尚未完成的工作包装成反馈。</p>
+<aside class="note"><strong>全部为独立编写的虚构外星人故事。</strong>这里的星球、角色、手册和评论都不存在。它是通用交互演示，不展示任何真实项目或材料。演示状态仅保存在此浏览器，不上传、不调用 AI。</aside>
+<h2>先分清三个篮子</h2><ol><li><strong>待你审核：</strong>回复或候选修改已经准备好，需要你看差异、作判断。</li><li><strong>执行方待办：</strong>还要核查、补写或测试，不应该要求你先“验收”。</li><li><strong>已看 / 已决定：</strong>看过只表示已读，采用、拒绝、暂缓是另外的决定。历史不删除，新版本要重新审核。</li></ol>
+<section aria-labelledby="inbox-title"><h2 id="inbox-title">一个集中的待审核序列</h2>
+<p class="muted">固定按主题顺序排列，不按点击顺序重排。“看过”进入已看筛选；可以撤回。状态独立于主工作台，互不覆盖。</p>
+<div class="toolbar"><label>查看 <select id="filter"><option value="unseen">待审核</option><option value="seen">已看</option><option value="all">全部</option></select></label><button id="undo" disabled>撤销 ⌘Z</button><button id="redo" disabled>重做 ⌘Y</button></div>
+<p class="muted">也支持 Ctrl+Z / Ctrl+Y 与 ⌘⇧Z。键盘历史限本次打开，已看状态可跨刷新保存；不会接管输入框原生撤销。</p><p id="status" role="status" aria-live="polite"></p><div id="cards"></div></section>
+<section class="card"><span class="badge">执行方待办 · 不在待审核队列</span><h2>月光茶说明仍缺一个依据</h2><p><strong>虚构编辑：</strong>“‘所有外星人都爱薄荷’的来源尚未找到，我还需要检查原始访谈；目前不能请你批准这句话。”</p><p>负责人：手册编辑。下一步：寻找原始访谈。阻碍：来源缺失。证据截止：故事版本 B。需读者操作：暂无。这里没有真的运行核查。</p></section>
+<section class="card"><h2>怎样提纯，而不把意思改掉？</h2><ol><li><strong>保原件：</strong>保留原话、位置、版本与上下文；摘要不能冒充逐字引文。</li><li><strong>先分用途：</strong>“请解释”与“修改正文”分开。同一意见有两个要求时分别记录，但仍连回同一来源。</li><li><strong>一张卡一个判断：</strong>先呈现问题、具体回答或新旧文字、尚存边界，最后说明需要读者决定什么。</li><li><strong>只合并真正重复：</strong>相同来源与版本可去重；相似主题的不同意见要保留映射。更晚的摘要不能覆盖更新的原始证据。</li><li><strong>版本变更重新入队：</strong>已读只绑定已读的那一版；更新后说明新增了什么，不让旧“看过”自动确认新内容。</li><li><strong>校验原文抽取：</strong>文档的超链接、文本片段和修订标记可能影响抽取。疑似“删除”先回源核对，不把抽取漏字当作者删改。</li><li><strong>最后看全局：</strong>逐条回应不等于整体论证完整。检查仍未回答的问题、相互冲突的建议和框架之外的解释。</li></ol></section>
+<section class="card"><h2>实现约定与验收清单</h2><ul><li>来源 ID、内容版本、阅读状态、处理决定、执行状态分别存储；不能用一个“完成”覆盖全部。</li><li>保留原始顺序和来源锚点。每条提纯反馈都能回到原文位置，不只给一张无法核对的汇总表。</li><li>撤销必须恢复整次操作前状态；撤销后新操作清空重做分支。输入框保留自己的编辑历史。</li><li>本机保存不是身份认证或可靠备份。公开页面不要输入敏感内容；跨设备同步和导出要单独设计权限。</li><li>测试误点、连续撤销/重做、刷新恢复、存储不可用、键盘操作、手机布局和旧版本数据。</li></ul><p class="muted">本示例只演示已看标记与阅读序列，不自动修改正文、不收集真实反馈，也不把“看过”转换为批准。</p></section>
+<footer><a href="../../continuous-learning/writing-feedback.html">继续看反馈提纯的方法笔记</a> · <a href="../../PUBLICATION_POLICY.md">公开内容边界</a><p>公开示例应独立创作，不应仅给真实内容换名字后公开。</p></footer></main>
+<script>
+'use strict';
+const key='goose-fictional-feedback-inbox-v1';
+const items=[
+{id:'greeting-v1',title:'问候语：解释还是强制修改？',original:'飞船抵达时，所有访客必须挥动触角。',feedback:'没有触角的访客怎么办？我只想先听解释，不要直接改手册。',answer:'这句话把一种身体特征当成了通用要求。先说明适用边界，再由作者决定是否修改。',proposed:'候选而未采用：访客可以挥手、发光，或选择自己舒适的问候方式。',question:'解释是否回答了问题？若愿意修改，再另行批准候选句。',type:'只需解释',source:'虚构迎宾手册 A · 问候段'},
+{id:'tea-v1',title:'招待规则：保留原意，缩小过强措辞',original:'每位外星客人都会喜欢月光茶。',feedback:'请把承诺范围写窄，不能保证每位客人的口味。',answer:'提纯成一个修改要求：去掉对所有人的保证，并保留选择权。',proposed:'候选修订：接待处提供月光茶，也可询问客人是否需要其他饮品。',question:'这版是否保留了招待的本意，又没有替客人作决定？',type:'正文修改候选',source:'虚构迎宾手册 A · 饮品段'},
+{id:'map-v1',title:'地图说明：标出未知，不补写不存在的证据',original:'沿蓝色石头一定能找到维修站。',feedback:'地图只画到桥边，请说明桥后路线还没确认。',answer:'保留已知路段，明确未知路段；不把候选路线写成实测路线。',proposed:'候选修订：蓝色石头标记了通向桥边的路。桥后的维修站路线尚未确认。',question:'读者能否看出哪些已知、哪些未知？',type:'正文修改候选',source:'虚构迎宾手册 B · 路线段'}
+];
+let seen={};let undoStack=[];let redoStack=[];let storageOK=true;
+try{const raw=JSON.parse(localStorage.getItem(key)||'{}');if(raw&&typeof raw==='object'&&!Array.isArray(raw))for(const i of items)if(raw[i.id]===true)seen[i.id]=true;}catch{storageOK=false;}
+const escapeHTML=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const copy=s=>({...s});
+function announce(message){document.getElementById('status').textContent=message+(storageOK?'':' 本机保存不可用，当前状态仅保留到关闭页面。');}
+function persist(){try{localStorage.setItem(key,JSON.stringify(seen));storageOK=true;}catch{storageOK=false;}}
+function render(){
+const filter=document.getElementById('filter').value;
+const visible=items.filter(i=>filter==='all'||(filter==='seen'?seen[i.id]:!seen[i.id]));
+document.getElementById('cards').innerHTML=visible.map(i=>'<article class="card"><span class="badge">'+escapeHTML(i.type)+'</span><h3>'+escapeHTML(i.title)+'</h3><p><strong>提纯后的回复：</strong>'+escapeHTML(i.answer)+'</p><p><strong>现在只需判断：</strong>'+escapeHTML(i.question)+'</p><details><summary>展开原意见、原文与候选对照</summary><p class="muted">'+escapeHTML(i.source)+'。均为虚构原文，不是摘要。</p><blockquote>'+escapeHTML(i.feedback)+'</blockquote><div class="comparison"><div><strong>原文</strong><p>'+escapeHTML(i.original)+'</p></div><div><strong>候选 / 尚未批准</strong><p>'+escapeHTML(i.proposed)+'</p></div></div></details><p><button data-id="'+i.id+'">'+(seen[i.id]?'撤回看过':'标记看过（不是批准）')+'</button></p></article>').join('')||'<p class="note">这个筛选下暂时没有条目。可切换“全部”查看原记录。</p>';
+document.getElementById('undo').disabled=!undoStack.length;document.getElementById('redo').disabled=!redoStack.length;
+}
+function toggle(id){undoStack.push(copy(seen));redoStack=[];seen[id]=!seen[id];persist();render();announce('已更新阅读标记。正文与批准状态没有改变。');}
+function undo(){if(!undoStack.length)return;redoStack.push(copy(seen));seen=undoStack.pop();persist();render();announce('已撤销上一次阅读标记。');}
+function redo(){if(!redoStack.length)return;undoStack.push(copy(seen));seen=redoStack.pop();persist();render();announce('已重做阅读标记。');}
+document.getElementById('cards').addEventListener('click',e=>{const b=e.target.closest('button[data-id]');if(b)toggle(b.dataset.id);});
+document.getElementById('filter').addEventListener('change',render);
+document.getElementById('undo').addEventListener('click',undo);document.getElementById('redo').addEventListener('click',redo);
+document.addEventListener('keydown',e=>{if(e.isComposing||!(e.metaKey||e.ctrlKey)||e.altKey||e.target.closest('input,textarea,select,[contenteditable]'))return;const k=e.key.toLowerCase();if(k==='z'&&!e.shiftKey&&undoStack.length){e.preventDefault();undo();}else if((k==='y'||(k==='z'&&e.shiftKey))&&redoStack.length){e.preventDefault();redo();}});
+render();announce('从一条反馈开始即可。');
+</script></body></html>
