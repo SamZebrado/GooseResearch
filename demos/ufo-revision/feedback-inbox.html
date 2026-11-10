@@ -10,12 +10,13 @@
 <p class="note"><strong>两种模式并列：</strong>Systematic 模式保留原有完整步骤，用于系统理解与逐段修稿；本页 To-do 模式集中处理当前需要审核的反馈。按用途选择，不相互替代，也不共享阅读完成标记。</p><h2>先分清三个篮子</h2><ol><li><strong>待你审核：</strong>回复或候选修改已经准备好，需要你看差异、作判断。</li><li><strong>执行方待办：</strong>还要核查、补写或测试，不应该要求你先“验收”。</li><li><strong>已看 / 已决定：</strong>看过只表示已读，采用、拒绝、暂缓是另外的决定。历史不删除，新版本要重新审核。</li></ol>
 <section aria-labelledby="inbox-title"><h2 id="inbox-title">一个集中的待审核序列</h2>
 <p class="muted">固定按主题顺序排列，不按点击顺序重排。“看过”进入已看筛选；可以撤回。状态独立于主工作台，互不覆盖。</p>
-<div class="toolbar"><label>查看 <select id="filter"><option value="unseen">待审核</option><option value="seen">已看</option><option value="all">全部</option></select></label><button id="undo" disabled>撤销 ⌘Z</button><button id="redo" disabled>重做 ⌘Y</button></div>
+<div class="toolbar"><label>查看 <select id="filter"><option value="unseen">待审核</option><option value="seen">已看</option><option value="all">全部</option></select></label><button id="undo" disabled>撤销 ⌘Z</button><button id="redo" disabled>重做 ⌘Y</button><button id="reset-demo">重置示例</button></div>
 <p class="muted">也支持 Ctrl+Z / Ctrl+Y 与 ⌘⇧Z。键盘历史限本次打开，已看状态可跨刷新保存；不会接管输入框原生撤销。</p><p id="status" role="status" aria-live="polite"></p><div id="cards"></div></section>
 <section class="card"><span class="badge">执行方待办 · 不在待审核队列</span><h2>月光茶说明仍缺一个依据</h2><p><strong>虚构编辑：</strong>“‘所有外星人都爱薄荷’的来源尚未找到，我还需要检查原始访谈；目前不能请你批准这句话。”</p><p>负责人：手册编辑。下一步：寻找原始访谈。阻碍：来源缺失。证据截止：故事版本 B。需读者操作：暂无。这里没有真的运行核查。</p></section>
 <section class="card"><h2>怎样提纯，而不把意思改掉？</h2><ol><li><strong>保原件：</strong>保留原话、位置、版本与上下文；摘要不能冒充逐字引文。</li><li><strong>先分用途：</strong>“请解释”与“修改正文”分开。同一意见有两个要求时分别记录，但仍连回同一来源。</li><li><strong>一张卡一个判断：</strong>先呈现问题、具体回答或新旧文字、尚存边界，最后说明需要读者决定什么。</li><li><strong>只合并真正重复：</strong>相同来源与版本可去重；相似主题的不同意见要保留映射。更晚的摘要不能覆盖更新的原始证据。</li><li><strong>版本变更重新入队：</strong>已读只绑定已读的那一版；更新后说明新增了什么，不让旧“看过”自动确认新内容。</li><li><strong>校验原文抽取：</strong>文档的超链接、文本片段和修订标记可能影响抽取。疑似“删除”先回源核对，不把抽取漏字当作者删改。</li><li><strong>最后看全局：</strong>逐条回应不等于整体论证完整。检查仍未回答的问题、相互冲突的建议和框架之外的解释。</li></ol></section>
 <section class="card"><h2>实现约定与验收清单</h2><ul><li>来源 ID、内容版本、阅读状态、处理决定、执行状态分别存储；不能用一个“完成”覆盖全部。</li><li>保留原始顺序和来源锚点。每条提纯反馈都能回到原文位置，不只给一张无法核对的汇总表。</li><li>撤销必须恢复整次操作前状态；撤销后新操作清空重做分支。输入框保留自己的编辑历史。</li><li>本机保存不是身份认证或可靠备份。公开页面不要输入敏感内容；跨设备同步和导出要单独设计权限。</li><li>测试误点、连续撤销/重做、刷新恢复、存储不可用、键盘操作、手机布局和旧版本数据。</li></ul><p class="muted">本示例只演示已看标记与阅读序列，不自动修改正文、不收集真实反馈，也不把“看过”转换为批准。</p></section>
 <footer><a href="../../continuous-learning/writing-feedback.html">继续看反馈提纯的方法笔记</a> · <a href="../../PUBLICATION_POLICY.md">公开内容边界</a><p>公开示例应独立创作，不应仅给真实内容换名字后公开。</p></footer></main>
+<dialog id="reset-confirmation" aria-labelledby="reset-title"><h2 id="reset-title">重置这个 To-do 示例？</h2><p>仅将本示例的已看标记恢复为未读，筛选回到待审核。不影响 Systematic 模式或其他页面。确认后仍可在本次打开中撤销。</p><button id="reset-cancel" autofocus>取消，保留记录</button> <button id="reset-accept">确认重置</button></dialog>
 <script>
 'use strict';
 const key='goose-fictional-feedback-inbox-v1';
@@ -41,7 +42,11 @@ function undo(){if(!undoStack.length)return;redoStack.push(copy(seen));seen=undo
 function redo(){if(!redoStack.length)return;undoStack.push(copy(seen));seen=redoStack.pop();persist();render();announce('已重做阅读标记。');}
 document.getElementById('cards').addEventListener('click',e=>{const b=e.target.closest('button[data-id]');if(b)toggle(b.dataset.id);});
 document.getElementById('filter').addEventListener('change',render);
+const resetDialog=document.getElementById('reset-confirmation');
+document.getElementById('reset-demo').addEventListener('click',()=>resetDialog.showModal());
+document.getElementById('reset-cancel').addEventListener('click',()=>resetDialog.close());
+document.getElementById('reset-accept').addEventListener('click',()=>{undoStack.push(copy(seen));redoStack=[];seen={};document.getElementById('filter').value='unseen';persist();render();resetDialog.close();announce('已重置本 To-do 示例，可用撤销恢复已看标记；Systematic 模式未改变。');});
 document.getElementById('undo').addEventListener('click',undo);document.getElementById('redo').addEventListener('click',redo);
-document.addEventListener('keydown',e=>{if(e.isComposing||!(e.metaKey||e.ctrlKey)||e.altKey||e.target.closest('input,textarea,select,[contenteditable]'))return;const k=e.key.toLowerCase();if(k==='z'&&!e.shiftKey&&undoStack.length){e.preventDefault();undo();}else if((k==='y'||(k==='z'&&e.shiftKey))&&redoStack.length){e.preventDefault();redo();}});
+document.addEventListener('keydown',e=>{if(resetDialog.open||e.isComposing||!(e.metaKey||e.ctrlKey)||e.altKey||e.target.closest('input,textarea,select,[contenteditable]'))return;const k=e.key.toLowerCase();if(k==='z'&&!e.shiftKey&&undoStack.length){e.preventDefault();undo();}else if((k==='y'||(k==='z'&&e.shiftKey))&&redoStack.length){e.preventDefault();redo();}});
 render();announce('从一条反馈开始即可。');
 </script></body></html>
