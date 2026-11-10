@@ -1,13 +1,13 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>反馈提纯与待审核序列 · 虚构外星人示例</title>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>To-do 模式 · 外星人反馈待审核序列</title>
 <style>
 :root{font-family:system-ui,sans-serif;color:#243c32;background:#f7f5ee;line-height:1.7}*{box-sizing:border-box}body{margin:0}main{max-width:1020px;margin:auto;padding:30px 22px 70px}a{color:#37654b}h1{font-size:clamp(28px,5vw,44px);line-height:1.2}h2{font-size:23px}p{max-width:80ch}.eyebrow{letter-spacing:.14em;font-size:12px}.note,.card{border:1px solid #d6ddd2;background:#fffdf7;border-radius:12px;padding:20px;margin:18px 0}.note{background:#eaf0e7}.muted{color:#58685e;font-size:14px}.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}button,select{font:inherit;padding:8px 14px;border:1px solid #9aada0;background:white;border-radius:7px;color:inherit}button{cursor:pointer}button:disabled{opacity:.45;cursor:default}button:focus-visible,a:focus-visible,summary:focus-visible,select:focus-visible{outline:3px solid #ba5030;outline-offset:3px}.badge{display:inline-block;padding:3px 9px;background:#edf1e9;border-radius:5px;font-size:12px}summary{cursor:pointer;font-weight:600}.comparison{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:15px 0}.comparison>div{padding:15px;background:#f4f4ed;border-radius:8px}blockquote{margin:12px 0;padding-left:15px;border-left:3px solid #c6b58b}ol li{margin-bottom:9px}#status{min-height:1.7em}code{overflow-wrap:anywhere}footer{margin-top:35px;border-top:1px solid #ddd;padding-top:15px;font-size:13px}@media(max-width:650px){.comparison{grid-template-columns:1fr}main{padding:20px 16px}.card{padding:16px}}
 </style></head><body><main>
-<a href="index.html">← 修稿工作台</a><p class="eyebrow">FICTIONAL ALIEN EXAMPLE / REVIEW INBOX</p>
-<h1>不是再读一遍。<br>只看这次需要你判断的变化。</h1>
+<a href="index.html">← Systematic 模式：系统逐步修稿</a><p class="eyebrow">TO-DO MODE / FICTIONAL ALIEN EXAMPLE</p>
+<h1>To-do 模式：不是再读一遍。<br>只看这次需要你判断的变化。</h1>
 <p>反馈可以先提纯成一个可审核的问题，再保留原文对照作为依据。提纯不是删除原话、代替作者决定，也不是把尚未完成的工作包装成反馈。</p>
 <aside class="note"><strong>全部为独立编写的虚构外星人故事。</strong>这里的星球、角色、手册和评论都不存在。它是通用交互演示，不展示任何真实项目或材料。演示状态仅保存在此浏览器，不上传、不调用 AI。</aside>
-<h2>先分清三个篮子</h2><ol><li><strong>待你审核：</strong>回复或候选修改已经准备好，需要你看差异、作判断。</li><li><strong>执行方待办：</strong>还要核查、补写或测试，不应该要求你先“验收”。</li><li><strong>已看 / 已决定：</strong>看过只表示已读，采用、拒绝、暂缓是另外的决定。历史不删除，新版本要重新审核。</li></ol>
+<p class="note"><strong>两种模式并列：</strong>Systematic 模式保留原有完整步骤，用于系统理解与逐段修稿；本页 To-do 模式集中处理当前需要审核的反馈。按用途选择，不相互替代，也不共享阅读完成标记。</p><h2>先分清三个篮子</h2><ol><li><strong>待你审核：</strong>回复或候选修改已经准备好，需要你看差异、作判断。</li><li><strong>执行方待办：</strong>还要核查、补写或测试，不应该要求你先“验收”。</li><li><strong>已看 / 已决定：</strong>看过只表示已读，采用、拒绝、暂缓是另外的决定。历史不删除，新版本要重新审核。</li></ol>
 <section aria-labelledby="inbox-title"><h2 id="inbox-title">一个集中的待审核序列</h2>
 <p class="muted">固定按主题顺序排列，不按点击顺序重排。“看过”进入已看筛选；可以撤回。状态独立于主工作台，互不覆盖。</p>
 <div class="toolbar"><label>查看 <select id="filter"><option value="unseen">待审核</option><option value="seen">已看</option><option value="all">全部</option></select></label><button id="undo" disabled>撤销 ⌘Z</button><button id="redo" disabled>重做 ⌘Y</button></div>
