@@ -1,0 +1,4 @@
+interface:
+  display_name: "三省六部协作审议"
+  short_description: "中书起草、门下审核、尚书调度，六部与翰林院按需参与的实验流程"
+  default_prompt: "用 $three-provinces-six-ministries 审议这项工作的后续计划、资源和分工，给我完整提示词并复核，不自动发送给执行者。"

@@ -20,6 +20,7 @@ Status describes the author's current use, not a quality certification. Public e
 - [`continuous-learning/writing-feedback.html`](continuous-learning/writing-feedback.html) — 接续现有写作入口：公开文章收集、导师反馈提纯与写作检查；只保留通用方法。
 - [`notion-learning-quests.html`](notion-learning-quests.html) — 中文经验网页：Notion 学习闯关的现成方案、虚构三关示意与待验证的搭建检查清单；下载后可直接在浏览器打开。
 - [`agentic-engineering/`](agentic-engineering/) — reviewing and governing AI-assisted implementation work.
+- [`skills/three-provinces-six-ministries/SKILL.md`](skills/three-provinces-six-ministries/SKILL.md) — 实验性的三省六部协作审议：[独立 demo](skills/three-provinces-six-ministries.html)。中书起草、门下审核、尚书调度，六部与翰林院按需参与；不自动安装或执行。
 - [`research-engineering/`](research-engineering/) — reproducibility, model-fitting, evidence, and scientific-software practice.
 - [`legacy-matlab-tools/`](legacy-matlab-tools/) — the original MATLAB scripts and demos kept for continuity.
 - [`PUBLICATION_POLICY.md`](PUBLICATION_POLICY.md) — privacy and provenance gate for all public notes.

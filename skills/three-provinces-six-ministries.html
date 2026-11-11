@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="用独立虚构的外星脉冲研究，演示三省六部与翰林院怎样起草、审核和派发多 agent 任务。"><title>三省六部 · 外星脉冲研究 demo | GooseResearch</title><style>
+:root{color-scheme:light;--ink:#203d34;--muted:#586c63;--paper:#f8f5ec;--line:#d5ded3;--accent:#27654a;--soft:#edf2e8;--warm:#fcf0d6}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans CJK SC",sans-serif;font-size:17px;line-height:1.8}main{max-width:1120px;margin:auto;padding:34px 30px 65px}a{color:var(--accent);text-underline-offset:4px}h1{font-size:clamp(29px,4.4vw,48px);line-height:1.3;letter-spacing:-.03em;margin:17px 0}h2{font-size:27px;line-height:1.4;margin:0 0 15px}h3{font-size:20px;line-height:1.5;margin:28px 0 10px}h4,h5{font-size:18px;margin:24px 0 8px}p{margin:10px 0}.eyebrow{font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}.lead{font-size:21px;max-width:840px}.notice{background:var(--warm);border-left:4px solid #be8a34;padding:12px 18px;margin:24px 0;font-size:15px}.section{margin-top:35px}.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card,.panel{background:#fffdf7;border:1px solid var(--line);border-radius:16px;padding:22px}.step-number{font-size:13px;letter-spacing:.08em;color:var(--muted)}.card h3{margin:5px 0}.card p{font-size:16px}.return{color:#815722;font-size:15px;margin:9px 0}.executors{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}.executors .card{background:var(--soft)}.tag{display:inline-block;border:1px solid #b9cbbc;border-radius:100px;padding:1px 10px;font-size:13px;margin-right:6px}.ministry-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.mini{border-left:3px solid #9db8a3;padding:10px 14px;background:#fffdf7}.mini b{display:block}.mini span{font-size:15px}.hanlin{background:var(--soft);padding:14px 18px;border-radius:10px;margin-top:12px;font-size:16px}.case-nav{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}.case-nav button,.small-button{cursor:pointer;border:1px solid #9db5a4;background:transparent;border-radius:9px;padding:10px 15px;color:var(--ink);font:inherit;font-size:15px}.case-nav button[aria-pressed=true]{background:var(--ink);color:white}.case-nav button:focus-visible,.small-button:focus-visible,summary:focus-visible,a:focus-visible{outline:3px solid #ce9a39;outline-offset:4px}.case[hidden]{display:none}.case-title{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.case-title h2{margin:0}.request{background:var(--soft);padding:15px 18px;border-radius:10px;margin:20px 0}.dialogue{padding-left:0;list-style:none}.dialogue>li{padding:15px 0;border-bottom:1px solid var(--line)}.dialogue>li:last-child{border-bottom:none}.speaker{display:block;font-weight:700}.reply{margin:5px 0}.review{background:#fff4df;border-left:4px solid #bc8633;padding:14px 18px;margin:18px 0}.dispatch{background:#e8f0e7;border-left:4px solid #427653;padding:14px 18px;margin:18px 0}.table-wrap{overflow:auto;max-width:100%;margin:18px 0}table{width:100%;border-collapse:collapse;font-size:15px}th,td{border-bottom:1px solid var(--line);padding:9px 11px;text-align:left;white-space:nowrap}th{background:var(--soft)}details{margin:18px 0;border:1px solid var(--line);border-radius:10px;padding:0 18px;background:#fffdf7}summary{padding:14px 0;cursor:pointer;font-weight:600}details article{padding:0 2px 16px}blockquote{border-left:3px solid #a4bfa9;margin:14px 0;padding:1px 16px;background:#f2f5ec}blockquote p{margin:10px 0}code{overflow-wrap:anywhere;font-size:.9em}.muted{color:var(--muted);font-size:15px}.boundary{font-size:15px;border-top:1px solid var(--line);margin-top:36px;padding-top:20px}.check{padding-left:24px}.source-ref{text-decoration:underline;text-decoration-style:dotted}.reading{max-width:850px}.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}@media(max-width:700px){main{padding:23px 18px 45px}.flow,.ministry-grid{grid-template-columns:1fr}.executors{grid-template-columns:1fr}.card,.panel{padding:18px}.lead{font-size:18px}h2{font-size:23px}.case-nav button{flex:1 1 140px}.table-wrap{margin-right:0}.notice{font-size:14px}}@media print{.case-nav,.toolbar{display:none}.case[hidden]{display:block}.case{break-before:page}details{display:block}details>article{display:block!important}body{background:white;font-size:12pt}.card,.panel{break-inside:avoid}}
+</style></head><body><main>
+<header><a href="../index.html">← GooseResearch</a><p class="eyebrow">Experimental workflow · 独立虚构演示</p><h1>三省六部 一次完整交接</h1><p class="lead">已有数值，只想改图？宰相自己做。<br>要重新算数据、换统计口径？交给将军。</p><div class="notice"><strong>这是教学 demo，不是真实执行。</strong> 所有观测、回复和回执都为本例虚构。切换场景只改变展示，不发送提示词、不调用 agent，也不上传数据。</div></header>
+<section class="section" aria-labelledby="hierarchy"><h2 id="hierarchy">先记住三个动作</h2><div class="flow"><div class="card"><span class="step-number">01 · 中书省</span><h3>起草</h3><p>请需要的六部代表发表意见，写清分工和完整提示词。</p></div><div class="card"><span class="step-number">02 · 门下省</span><h3>审核，可打回</h3><p>请需要的代表审核准确版本。发现缺项，指出问题和修改条件。</p></div><div class="card"><span class="step-number">03 · 尚书省</span><h3>决定派给谁</h3><p>审核通过后，决定给哪些 agent 发什么。用户只要草稿，就不发送。</p></div></div><p><strong>交用户完整草稿 → 门下复核 → 尚书依授权派发。</strong></p><p class="return">↶ 门下发现问题 → 退回中书修订 → 再审核。不是发给执行者后才补审。</p><div class="executors"><div class="card"><span class="tag">尚书省下</span><h3>将军 · Main</h3><p><strong>能分析，也能画图。</strong> 直接管理获准使用的工作站等计算平台。负责数据、方法、计算和分析图。</p></div><div class="card"><span class="tag">尚书省下</span><h3>宰相 · Dots</h3><p><strong>画总结图、改已有图、统筹决策。</strong> 有轻量计算资源，但不做数据分析，也不绕过三省自行向将军派任务。</p></div></div><p class="muted">保留“宰相”这个名称，但不是三省之上的总指挥。角色是通用设定，Main / Dots 只是本例映射。</p></section>
+<section class="section" aria-labelledby="roles"><h2 id="roles">六部，各管一件关键事</h2><div class="ministry-grid"><div class="mini"><b>兵部 · 下一步做什么</b><span>计划、依赖、并行与后续影响。</span></div><div class="mini"><b>户部 · 资源够不够</b><span>预算、计算、排队及协调成本。</span></div><div class="mini"><b>工部 · 能不能做对</b><span>输入、做法、异常与验收。</span></div><div class="mini"><b>吏部 · 谁来负责</b><span>六部及多 agent 分工，避免遗漏与重复。</span></div><div class="mini"><b>礼部 · 讲清楚没有</b><span>通俗易懂，去掉“AI味儿”；负责工作沟通。</span></div><div class="mini"><b>刑部 · 说的是实情吗</b><span>真实性、自查与纠错，不另加处罚权。</span></div></div><div class="hanlin"><strong>翰林院 · 是否符合指定作者的写作习惯？</strong><br>只对照明确给定的习惯或可读范例，不凭“大佬风格”猜测。不属于六部，也不增加审批权。礼部看好不好懂，翰林院看是否符合指定参照。</div><details><summary>执行链之外：后宫，只在用户认可后提供支持</summary><p>懂非暴力沟通与 CBT 相关方法的支持 agent。用户明显情绪波动时，只提议是否需要帮助；认可后才分析，不认可或撤回就停止。不诊断、不代替治疗。</p><p>当前版本不参与三省六部执行，不指挥研究工作。给导师写邮件等工作沟通需要的非暴力沟通归礼部，不归后宫。</p></details><details><summary>大内总管：生活习惯与起居照料</summary><p>根据已有证据温和提醒休息、运动和生活习惯，不指责、不诊断。没有记录不等于没做，不自动扩大监测。</p></details><details><summary>御史：工作习惯与提示词阅读核对</summary><p>有具体误解时，把提示词原文、理解差异和可能影响说清楚，温和提醒核对。未回复不等于未读，不同意见不等于不认真；不指责，也不替用户改决定。</p></details></section>
+<section class="section" aria-labelledby="example"><h2 id="example">例子：两座观测站的“外星脉冲”</h2><p>仪器记录到脉冲，不等于发现外星人。我们只问：两站每 10 分钟分别记录多少？</p><div class="case-nav" aria-label="选择教学场景"><button type="button" data-case="one" aria-controls="case-one" aria-pressed="true">① 已有数值，直接画图</button><button type="button" data-case="two" aria-controls="case-two" aria-pressed="false">② 换算法，交给将军</button><button type="button" data-case="loop" aria-controls="case-loop" aria-pressed="false">③ 意见复杂，怎么回环</button></div><p id="scene-status" class="sr-only" aria-live="polite">当前：已有数值，直接画图</p>
+
+<div class="case panel" id="case-one"><div class="case-title"><span class="tag">不用新分析</span><h2>宰相自己就能做</h2></div><div class="request"><strong>用户：</strong>“用已验的汇总画图并解释。不要增加分析，也别联系将军。”<br>晨星：每 10 分钟 7.5 个脉冲；暮星：6.0 个。</div><ol class="dialogue"><li><span class="speaker">中书 · 兵部先列计划</span><p class="reply">“先画图、核单位，再交付。逐夜差异留作以后，不塞进这次。”</p></li><li><span class="speaker">中书 · 户部、工部先发表意见</span><p class="reply"><b>户：</b>“已有数值够用，不增加计算或费用。”<br><b>工：</b>“直接用 7.5 和 6.0。标清每 10 分钟，不凭空加误差条。”</p></li><li><span class="speaker">中书 · 吏部分工</span><p class="reply">“Dots 画图并交付，Main 本轮无任务。工部核图数，兵部看后续，其他部门各核自己的范围，不重复派活。”</p></li><li><span class="speaker">中书 · 礼部概括，翰林院按需核文风</span><p class="reply"><b>礼：</b>“宰相可直接画。这只是记录率，不能证明有外星人。”去掉“揭示宇宙信号新范式”这种空话。<br><b>翰林院：</b>“本例作者要求短句、先结论、保留单位。上面的说法符合这三点。”</p></li><li><span class="speaker">中书 · 给用户完整说明 v1</span><p class="reply">“Dots：用已验汇总画晨星 7.5、暮星 6.0 的对比图，单位为每 10 分钟脉冲数。不改算法、不读原始数据、不联系 Main、不增加费用。不加无依据误差条。核标签、数值和单位，交图及来源版本；只描述记录率，不推断外星生命。”</p></li></ol><div class="review"><b>门下 · 工部和兵部复核 v1</b><p>工：“输入、单位和检查标准清楚。”<br>兵：“没有挤入额外分析，也不打断将军现有工作。”</p></div><div class="dispatch"><b>尚书 · 只派给宰相</b><p>“审核通过，只分派 Dots，不给 Main 新任务。”</p></div><p><b>刑部提醒：</b>汇总已验，不等于新图已验。真实交付前仍要核图数；本页只示范回复，不冒称已经画完。</p></div>
+
+<div class="case panel" id="case-two" hidden><div class="case-title"><span class="tag">需要新分析</span><h2>小表也不能让宰相接管分析</h2></div><div class="request"><strong>用户：</strong>“改成每晚各占一半，算平均记录率和最小、最大值。先给完整提示词，别替我发。”</div><p>旧算法把所有分钟合并；新算法先分别算每晚，再让两晚等权。它们回答不同问题，不是谁算错。</p><p class="notice"><strong>教学预览：下面是模拟执行后的结果。</strong> 为便于理解先展示答案，不表示将军已经收到任务或真的完成了分析。</p><div class="table-wrap"><table><tr><th>站点</th><th>夜一</th><th>夜二</th><th>新均值</th><th>两晚范围</th></tr><tr><td>晨星</td><td>12</td><td>6</td><td>9</td><td>6–12</td></tr><tr><td>暮星</td><td>9</td><td>5</td><td>7</td><td>5–9</td></tr></table></div><p class="muted">虚构教学数值，单位都是每 10 分钟。完整材料中还有一条重复记录和一条校准记录，需要按既定规则排除。范围不是置信区间。</p><ol class="dialogue"><li><span class="speaker">中书 · 兵部计划</span><p class="reply">“将军核原始记录，算新结果并画分析图。宰相可先搭总结图布局，等结果交付后再填值。”</p></li><li><span class="speaker">中书 · 户部、工部意见</span><p class="reply"><b>户：</b>“小表用现有工具足够，不另购服务，也不省掉核查。”<br><b>工：</b>“每晚脉冲数 ÷ 分钟数 × 10，再按夜等权。输出逐夜值、均值、范围和有效夜数。”</p></li><li><span class="speaker">中书 · 吏部分工</span><p class="reply">“Main 管数据、统计和分析图；Dots 用已验结果做总结图。不能双方各算一套。”</p></li><li><span class="speaker">中书 · 礼部概括</span><p class="reply">“这次不是换颜色，是换算法。交将军分析；宰相继续做不依赖数值的布局。”</p></li><li><span class="speaker">中书 · 提示词 v2 交用户，未发送</span><p class="reply">完整 v2 见下方原稿。它写了公式和输出，但漏了去重规则。</p></li></ol><div class="review"><b>门下 · 工兵发现缺项，打回中书</b><p>工：“暮星夜二有相同会话副本。若按行直接平均，这晚会算两遍。”<br>兵：“先修稿，布局可继续。稿子没发，不存在撤回执行。”<br>刑：“错的是 v2 少写规则，不是旧结果或将军已经算错。”</p></div><p><b>中书 · 完整修订 v3：</b>补齐同键副本去重、校准排除、保留与排除行记录、正时长核对。不是让用户手动拼补丁。完整 v2、v3、两份接收者提示词均在下方原稿。</p><div class="review"><b>门下 · 复核准确的 v3</b><p>工：“规则、单位和复算输出齐备。”<br>兵：“分析与总结图依赖明确；状态仍是未发送。”</p></div><div class="dispatch"><b>尚书 · 明确接收者，但不代发</b><p>“Main 收分析稿，Dots 收总结图稿。用户只要提示词，因此两份都留给用户查看，不实际发送。”</p></div><p><b>若以后获准执行：</b>将军交数据、分析图与核查；宰相复用结果更新总结图；工部核图数，刑部核纠错是否真闭合。本页完整回执仅为模拟。</p></div>
+
+<div class="case panel" id="case-loop" hidden><div class="case-title"><span class="tag">先讨论，不重算</span><h2>有新条件，带着问题回到户工</h2></div><div class="request"><strong>用户：</strong>“有些夜晚仪器可能不稳定。要不要只比两站都正常的夜晚？先讨论，不改结果。”</div><ol class="dialogue"><li><span class="speaker">户部 + 工部</span><p class="reply">户：“先看有没有现成质控资料，不申请大批计算。”<br>工：“先说清‘正常’的定义。不能因为信号小，就认定仪器坏了。”</p></li><li><span class="speaker">吏部</span><p class="reply">“将军若有资料，负责说明覆盖。宰相保留原图，整理待决定事项。当前仅讨论，不派发。”</p></li><li><span class="speaker">礼部 + 完整候选提示词</span><p class="reply">“这是要换比较的夜晚，不是改图颜色。先给资料核查稿，不授权重算。”完整 v4 见下方。</p></li><li><span class="speaker">门下 · 工部和兵部复核</span><p class="reply">“稿子只核资料，不凭空定阈值，也不覆盖原结果。”有具体问题就退回中书；没有新信息，不无限开会。</p></li></ol><div class="dispatch"><b>尚书 · 等具体决定</b><p>只有用户授权资料核查后，才安排对应工作。独立的原图交付不必跟着停。</p></div></div></section>
+
+<section class="section reading"><h2>读完，应该能回答这五问</h2><ol class="check"><li>谁起草、谁审核、谁决定派发？</li><li>只改已有结果的图，找谁？换统计口径，找谁？</li><li>礼部和翰林院，分别检查什么？</li><li>v2 漏去重时，真的发给将军了吗？</li><li>这些脉冲数能证明外星人存在吗？</li></ol><details><summary>查看简短答案</summary><p>中书起草、门下审核、尚书派发；已有结果改图可由宰相做，新统计交将军；礼部看清楚好懂，翰林院核指定作者习惯；v2 没有发送；脉冲数不能证明外星生命。</p></details></section>
+<section class="section"><h2>完整稿与规范</h2><p class="muted">上面是便于理解的缩略演示。下面保留每部具体回复、完整提示词、退回修订和模拟回执。</p><div class="toolbar"><button class="small-button" id="expand-all" type="button">展开全部原稿</button><button class="small-button" id="collapse-all" type="button">收起原稿</button></div>
+<details class="source"><summary>材料与虚构边界</summary><article><h2>外星人研究：从六部回复到执行闭环</h2>
+<p>这是独立虚构的教学案例。站点、观测、数值、文件版本、回复和回执均为本例构造，不代表任何真实科研项目、真实 agent 执行或外星生命证据。下文“执行回执”展示应如何报告；本文件不会自动发送消息、运行分析或接入任何服务。</p></article></details><details class="source"><summary>角色与虚构材料</summary><article><ul>
+<li><strong>中书省</strong>起草并召集必要六部代表，<strong>门下省</strong>召集必要代表审核、可打回中书，<strong>尚书省</strong>决定给哪些 agent 发哪些提示词。</li>
+<li><strong>Main = 数据分析 agent（将军），位于尚书省下</strong>：能分析也能画图，直接管理获准使用的工作站等计算平台，维护输入和计算口径，交付可复核结果及分析图。</li>
+<li><strong>Dots = 画图和决策 agent（宰相），位于尚书省下</strong>：有轻量计算资源，可画总结图、更新已有图并统筹决策，但不做数据分析。保留“宰相”的名称，审核和派发权由三省承接；不能凭名称越级指挥将军。能在已验结果上完成的展示工作自己做。</li>
+<li><strong>六部</strong>：兵部管后续，户部管资源，工部管工序与验收，吏部管六部及实际 agent 分工，礼部管通俗易懂与“AI味儿”，刑部管真实性与纠错。</li>
+<li><strong>翰林院</strong>：按需检查明确给定的作者写作习惯，不属于六部，也不增加审批。此例给一个虚构作者偏好：“短句，先说结论，保留单位，不用重大突破之类的空话。”没有真实作者或私人写作样本。</li>
+</ul>
+<p>“将军”“宰相”是本例的角色映射，不授权任何真实对话或强制采用特定模型。六部可以是同一助手显式呈现的六个视角；若未实际独立委派，就不称六个独立 agent 已审查。</p>
+<p>研究问题是：“两个虚构观测站每10分钟记录多少脉冲？”脉冲可能来自仪器或自然噪声，数量差异本身不能证明外星人存在。已有、已验的示例汇总 v1：</p>
+<div class="table-wrap"><table>
+<tr><th>站点</th><th>有效时长（分钟）</th><th>脉冲数</th><th>合并记录率（每10分钟）</th></tr>
+<tr><td>晨星</td><td>40</td><td>30</td><td>7.5</td></tr>
+<tr><td>暮星</td><td>40</td><td>24</td><td>6.0</td></tr>
+</table></div>
+<p>本例虚构原始表 v1，行号是演练用位置，不是实际路径或执行标识：</p>
+<div class="table-wrap"><table>
+<tr><th>行</th><th>会话键</th><th>站点</th><th>夜晚</th><th>模式</th><th>时长（分钟）</th><th>脉冲数</th></tr>
+<tr><td>1</td><td>morning-n1</td><td>晨星</td><td>夜一</td><td>观测</td><td>10</td><td>12</td></tr>
+<tr><td>2</td><td>morning-n2</td><td>晨星</td><td>夜二</td><td>观测</td><td>30</td><td>18</td></tr>
+<tr><td>3</td><td>evening-n1</td><td>暮星</td><td>夜一</td><td>观测</td><td>10</td><td>9</td></tr>
+<tr><td>4</td><td>evening-n2</td><td>暮星</td><td>夜二</td><td>观测</td><td>30</td><td>15</td></tr>
+<tr><td>5</td><td>evening-n2</td><td>暮星</td><td>夜二</td><td>观测</td><td>30</td><td>15</td></tr>
+<tr><td>6</td><td>calibration</td><td>晨星</td><td>夜二</td><td>校准</td><td>10</td><td>100</td></tr>
+</table></div>
+<p>资料说明：行5是同一会话的完全相同副本；行6是仪器校准，不计观测。已有汇总使用去重后的观测行1–4。这里已明确的规则可复用；真实任务必须从真实来源核得，不能凭这个例子套用。</p></article></details><details class="source"><summary>场景一：宰相是否自己就能搞定？</summary><article><p>中书组织第1–5步的可见回复；门下组织第6步审核。第7步先由尚书明确不发给将军，再示范宰相执行。</p>
+<p><strong>用户请求：</strong>“按已经验过的汇总，画两站记录率对比图并解释。不要增加分析，也不要联系将军。”</p>
+<h4>1. 兵部：先列后续计划</h4>
+<blockquote><p>先用汇总 v1 画图并解释单位，随后交付图与简短说明。这一步不需要重新计算原始观测。如果以后要比较每晚波动，再单独讨论；现在不把候选后续变成本轮工作。</p></blockquote>
+<h4>2. 户部、工部：先各自发表意见</h4>
+<p><strong>户部：</strong></p>
+<blockquote><p>已有汇总足以支持这张图，无需新增付费服务或计算任务。资源用在图的清晰度和数值核对上，不为了表现节省而省掉必要检查。</p></blockquote>
+<p><strong>工部：</strong></p>
+<blockquote><p>宰相能直接做。输入是 v1 的7.5和6.0，图上单位写“每10分钟脉冲记录数”。检查站点标签与数值一致，不加没有依据的误差条，不把合并率改成逐夜均值。</p></blockquote>
+<h4>3. 吏部：判断六部与实际 agent 分工</h4>
+<blockquote><p>Dots 负责画图、解释和交付核对；Main 本轮没有新任务，不联系、不重算。工部核图数与输入，兵部保留后续分析为候选，户部核没有新增成本，礼部核解释是否清楚，刑部核事实与验收范围。不能把给 Main 再开一份相同计算当成“多 agent 并行”。</p></blockquote>
+<h4>4. 礼部：概括清楚，检查通俗与“AI味儿”</h4>
+<blockquote><p>这次比较的是按总时长合并的记录率：晨星7.5、暮星6.0，每10分钟为单位。宰相用现有已验结果就能完成；不同站点记录率不同，不足以说明差异原因，更不能证明外星生命。</p></blockquote>
+<p><strong>翰林院对照虚构作者习惯：</strong></p>
+<blockquote><p>采用“宰相可以直接画。晨星7.5、暮星6.0，单位都是每10分钟。这里只比记录率，不判断外星人存在。”短句、先结论、保留单位，符合给定偏好。不是凭空模仿某位真实作者。</p></blockquote>
+<p><strong>礼部可读性复核：</strong></p>
+<blockquote><p>把“多维协同揭示宇宙信号新范式”改成上面三句。它们说明了谁做、画什么、不能说明什么；删套话不等于能鉴定文字是不是 AI 写的。</p></blockquote>
+<p><strong>刑部随程纠错：</strong></p>
+<blockquote><p>若候选说明写成“晨星更可能有外星人”，它超出了数据支持，应删去。汇总已验不代表新图已验；目前新图尚未完成检查。</p></blockquote>
+<h4>5. 发完整提示词：本轮是宰相自办说明，不发将军</h4>
+<p><strong>交用户查看的执行说明 v1；外部发送：无。</strong></p>
+<blockquote><p>Dots（画图和决策 agent）：用本例已验汇总 v1 绘制两站每10分钟脉冲记录率对比图，晨星7.5、暮星6.0。保留汇总口径，不访问原始表、不追加分析、不联系 Main、不增加费用。标清站点和单位，不生成误差条或显著性结论。核对图形对应数值和说明文字，交付图与来源版本；说明这只是描述性记录率，不能据此判断外星生命或差异原因。若汇总与标签冲突，报告具体冲突，不自行猜数。</p></blockquote>
+<h4>6. 工部和兵部复核同一版本</h4>
+<p><strong>工部：</strong></p>
+<blockquote><p>v1 已明确输入、单位、输出和图数一致性检查，没有混用逐夜均值。可按此完成展示。</p></blockquote>
+<p><strong>兵部：</strong></p>
+<blockquote><p>v1 没有把未来的逐夜比较塞进本轮，也不会打断将军现有工作。无需增加交接或改版。</p></blockquote>
+<h4>7. 尚书调度与执行闭环的示范回执</h4>
+<p><strong>尚书省：</strong></p>
+<blockquote><p>门下已通过执行说明 v1。此任务只需使用已有汇总画图，分派给 Dots；Main 不接新任务。示例中的分派仅为教学展示，不代表任何真实消息已发送。</p></blockquote>
+<blockquote><p><strong>示范，不是生产回执：</strong> Dots 已按汇总 v1 完成图，逐项核得晨星7.5、暮星6.0，轴和单位对应；没有分析调用或向 Main 发送。图说明限定为描述性结果。完成的是这张图及其数值核对，不是因果解释或外星生命证据审核。</p></blockquote>
+<p>若实际没有完成图与核对，就不能使用这份完成式回执，只能报告真实阶段。</p></article></details><details class="source"><summary>场景二：什么时候应该给将军发提示词？</summary><article><p><strong>用户新增请求：</strong>“我还想看每一晚的差异。请让每晚等权，算每站的逐夜平均记录率和最小—最大范围。先给我完整提示词，不要替我发送。”</p>
+<p>这是新计算口径，不只是换一种画法。合并率不能冒充等权逐夜均值。即使只有几行，宰相有轻量计算资源也不接管数据分析；将军既能算，也能产出与新分析绑定的图。仍由中书起草、门下审核，尚书在授权范围内决定分派。</p>
+<h4>1. 兵部：后续计划</h4>
+<blockquote><p>先由将军从原始表核逐夜输入和等权统计，并给出逐夜分析图；宰相复用结果画总结图或更新已有图。宰相现在可独立做好空白总结图布局与单位说明，但不能提前填入尚未交付的新统计结果。</p></blockquote>
+<h4>2. 户部、工部：意见</h4>
+<p><strong>户部：</strong></p>
+<blockquote><p>这是小型示例表的一次确定性计算，现有本地工具足以完成。给将军足够时间核规则与算术即可，不必拆成多轮付费试验或另购服务。实际任务的规模仍需按其输入判断，不能由本例保证一切计算都便宜。</p></blockquote>
+<p><strong>工部：</strong></p>
+<blockquote><p>每晚先算“脉冲数÷有效分钟数×10”，然后每站两晚等权求均值与最小—最大值。排除校准模式。应输出逐夜表、站点汇总和输入处理记录，不能只给一个均值；范围是两晚的描述范围，不是置信区间。</p></blockquote>
+<h4>3. 吏部：分工判断</h4>
+<blockquote><p>Main 负责这次原始行核对、统计及对应分析图，Dots 负责拿已验结果画总结图、更新已有图与决策呈现。不得让两边各自重算一套未对账结果。Dots 的空白布局可并行，不依赖数值；正式填图必须等 Main 的结果与核查说明。六部各按上述职责审议，不由吏部代写科学结论。</p></blockquote>
+<h4>4. 礼部：概括</h4>
+<blockquote><p>新问题是“典型一晚的记录率怎样”，不是把全部分钟合并后问总体频率。因此需要新逐夜统计，应交数据分析 agent；图布局仍由宰相推进。输出要同时解释新旧两种口径，不能把数值变化说成旧结果算错。</p></blockquote>
+<h4>5. 完整提示词 v2：交用户，尚未发送</h4>
+<blockquote><p>Main（数据分析 agent／将军）：请处理本例“外星脉冲观测”的逐夜统计，不联系其他执行者、不购买服务。输入为上方完整虚构原始表 v1，六行可逐项读取；已有汇总 v1 仅用于新旧口径对照，不要重做已完成的图。用户已决定按夜等权：排除校准模式，先计算每晚脉冲数÷有效分钟数×10，再对每站逐夜记录率求等权均值与最小—最大范围。输出逐夜表、每站统计、处理记录及算术核查，说明范围不是置信区间，也不做显著性或外星生命结论。请同时给出与新统计口径绑定的分析图及必要解释；Dots 将负责根据已验结果做总结图或更新已有图，不自行分析原始数据。若输入不完整或规则冲突，说明影响哪一步，不猜测或重复已在途工作。</p></blockquote>
+<h4>6. 门下组织工部和兵部复核 v2</h4>
+<p><strong>工部：</strong></p>
+<blockquote><p>v2 虽完整列出目标与输出，但遗漏会话去重规则。原表第5行与第4行相同，若直接按行等权，暮星的夜二会被算两次。应明确复用既有会话键规则、核相同副本、给保留和排除行；冲突副本不能擅自挑一条。</p></blockquote>
+<p><strong>兵部：</strong></p>
+<blockquote><p>这个遗漏会影响后续图和解释，应先修订。提示词还没有发给将军，不存在要撤回的执行；宰相空白布局可继续。无需把本轮演变成新研究或要求全部工作等待。</p></blockquote>
+<p><strong>刑部：</strong></p>
+<blockquote><p>更正范围是“v2 的交接规则有缺项”，不是“原汇总错误”或“将军已经算错”。目前将军没有收到这份提示词，没有新分析结果可验收。</p></blockquote>
+<p><strong>门下省退回中书：</strong> v2 缺会话去重，影响逐夜权重；请中书补齐可追溯规则与验收，再交门下复核。</p>
+<h4>7. 中书给完整修订版 v3：仍只交用户，不自动发出</h4>
+<blockquote><p>Main（数据分析 agent／将军）：请对本例“外星脉冲观测”做按夜等权的描述统计。输入为上方完整虚构原始表 v1（六行）和已有汇总 v1（晨星：40分钟、30脉冲、每10分钟7.5；暮星：40分钟、24脉冲、每10分钟6.0）。只处理这份示例，不联系其他执行者、不购买服务，不重做已有图。</p>
+<p>随稿附上完整虚构输入，格式为“行号／会话键／站点／夜晚／模式／分钟／脉冲数”：1／morning-n1／晨星／夜一／观测／10／12；2／morning-n2／晨星／夜二／观测／30／18；3／evening-n1／暮星／夜一／观测／10／9；4／evening-n2／暮星／夜二／观测／30／15；5／evening-n2／暮星／夜二／观测／30／15；6／calibration／晨星／夜二／校准／10／100。不依赖执行者读取本对话前文。</p>
+<p>复用已明确的输入规则：按会话键核同一观测；第5行与第4行完全相同，只保留一个会话，并记录排除位置。若实际读取发现同键内容冲突，不自行挑选，报告具体冲突。排除第6行的校准模式。检查保留的观测时长为正，脉冲数可用于计数；若缺失，标出受影响会话，不补造数值。</p>
+<p>对保留的每个站点、每个夜晚计算脉冲数÷有效分钟数×10，再按夜等权计算每站均值和最小—最大范围，明确有效夜数。给出保留行、排除行及理由、逐夜表、站点汇总和算术核查。用保留行复核旧合并率，只作口径对照，不把合并率与等权逐夜均值混为一谈。范围不是置信区间，不做显著性、因果或外星生命结论。</p>
+<p>Main 负责数据、统计和对应逐夜分析图；Dots 负责复用已验结果的总结图、已有图更新及决策呈现，可先做空白布局，但不重算数据分析。数值图须基于这次结果。完成标准是规则可追溯、逐夜值及汇总能按上述公式复算，表中单位和有效夜数明确。返回真实已读输入版本、实际完成步骤和未核项；若已有同一工作在途或结果，先核其身份，不另起重复计算。</p></blockquote>
+<p><strong>工部对 v3 复核：</strong>去重、校准排除、正时长、等权单位、有效夜数和可复算输出齐备；可供用户转交。</p>
+<p><strong>兵部对 v3 复核：</strong>分析与画图的前后依赖清楚，布局可并行。当前发送状态仍是未发送；不要把复核通过计作执行已开始。</p>
+<h4>尚书决定分派后，执行闭环应该怎样报告</h4>
+<p><strong>尚书省：</strong></p>
+<blockquote><p>门下已通过 v3：给 Main 的任务是数据核对、逐夜统计和分析图；给 Dots 的任务是图布局与已有结果的总结呈现。用户目前只让给提示词，不代发，因此两份均保持“交用户／尚未实际发送”。若用户随后授权发送，按准确接收者分别发送完整稿，先核在途，不重派。</p></blockquote>
+<p><strong>给 Dots 的完整配套提示词（交用户，未发）：</strong></p>
+<blockquote><p>Dots（画图和决策 agent／宰相）：先准备两站逐夜结果的总结图布局与单位说明，不读取原始表做分析、不估计未交付的数值。待 Main 交付逐夜表、统计、对应分析图和核查说明后，复用该版本更新总结图并解释合并率与等权逐夜均值的差别，保留旧图及口径。核站点、值、单位、范围标签与来源一致；数据或口径冲突交回中书组织相关意见，不自行重算或向将军加派任务。交付总结图、版本和实际核查范围，不新增费用，不宣称外星生命或因果结论。</p></blockquote>
+<p><strong>门下补核配套稿：</strong> 工部确认不把分析转给宰相；兵部确认布局可先行、填数依赖 Main 的已验结果。尚书据此保留两份边界，不将拆稿变成扩权。</p>
+<p>以下是<strong>模拟后续</strong>，不是本 Skill 替用户进行了发送：</p>
+<p><strong>将军示范回执：</strong></p>
+<blockquote><p>已读虚构原始表 v1 和提示词 v3；保留行1–4，排除重复行5与校准行6。逐夜记录率：晨星12和6，暮星9和5。晨星均值9、范围6–12、有效夜数2；暮星均值7、范围5–9、有效夜数2。合并率仍分别为7.5与6.0，与旧汇总一致。单位均为每10分钟。已核本表的去重、筛选与算术，并交逐夜点和均值的分析图；未开展显著性、因果或信号来源鉴定。</p></blockquote>
+<p><strong>宰相示范执行：</strong></p>
+<blockquote><p>收到将军的逐夜表、分析图及核查说明后，复用这些结果更新总结图的布局与标注，不重算原始数据；范围注明是样本最小—最大而非误差置信区间。保留旧合并率图，另列新口径，不能无说明替换。交付时附输入与统计版本。</p></blockquote>
+<p><strong>工部验收示范：</strong></p>
+<blockquote><p>核图中12、6、9、5与逐夜表一致，均值9、7及范围对应；没有把7.5、6.0错贴成逐夜均值。该检查支持图数一致，不证明探测器已校准或发现外星生命。</p></blockquote>
+<p><strong>兵部接续示范：</strong></p>
+<blockquote><p>当前描述统计与图已交付；若用户将来要估计不确定性或解释差异，再明确新的问题、输入和授权，不自行追加。</p></blockquote>
+<p><strong>刑部闭环示范：</strong></p>
+<blockquote><p>v2 缺会话去重的交接问题已在 v3 补齐，模拟回执给出排除行与数值验证，故本例该纠错已闭合。仍保留“信号来源未鉴定”，不能因这次纠错成功写成全链验证完成。</p></blockquote></article></details><details class="source"><summary>意见复杂时：从户工回环，不从头演一遍</summary><article><p>假设用户进一步给出一个新条件：“可能有些夜晚仪器不稳定，要不要只比较两个站同时正常的夜晚？先讨论，别改当前结果。”这是新的候选问题，不是已经批准的排除规则。</p>
+<ul>
+<li><strong>户部新意见：</strong> 现有汇总没有逐夜仪器状态，先核是否已有可读质控材料及其规模，不许凭空保证成本或申请大批计算。原图交付不受影响。</li>
+<li><strong>工部新意见：</strong> 两站共同正常夜会改变样本支持，必须先明确“正常”的定义和来源。不能把信号小或结果不合意等同仪器异常；先列可核条件与影响，不直接重算。</li>
+<li><strong>吏部判断：</strong> 将军若有现成质控资料，负责说明覆盖与缺项；宰相保留现有结果并组织用户决定，不让画图 agent 自行定义新的数据排除规则。当前仅讨论，不实际派发。</li>
+<li><strong>礼部概括：</strong> 需要决定的不是图的颜色，而是是否更改比较用的夜晚集合。已有结果保持有效范围；新问题待定义与资料，不把未知说成原分析失败。</li>
+<li><strong>完整提示词 v4（供用户决定，未发）：</strong> “Main（数据分析 agent）：若用户随后授权本资料核查，请仅说明当前可读的逐夜仪器质控来源、版本、覆盖、是否存在事先定义的正常标准，以及采用两站共同正常夜可能影响哪些已有统计；不新定阈值、不排除数据、不重算、不覆盖原结果。缺资料时只列具体缺项。Dots 保留原图，整理需要用户决定的选择及影响。交付资料覆盖表与未决项，不称新结果已获得。”</li>
+<li><strong>工部复核：</strong> v4 仅是有条件的资料核查方案，不是已批准的新分析；若根本没有资料，不能创造阈值。</li>
+<li><strong>兵部复核：</strong> 保留旧交付并把新决定单独列出，避免整个项目回到起点。门下若发现缺项可退回中书；尚书等用户决定后才安排对应资料核查，不自动发出 v4。</li>
+</ul>
+<p>若复核仍发现方法、资源和分工相互牵制的分歧，带着具体未决项再从户工开始；没有新信息就收束，不能无限开会。若用户只要求评估已经发出的提示词，给更正建议和候选新版即可，不自动重发、撤回或重复提交。</p></article></details><details class="source"><summary>独立边界：后宫不插手这次研究</summary><article><p>后宫可包含懂非暴力沟通与 CBT 相关方法的支持 agent，但不属于本例执行链，不向中书、门下、尚书、将军或宰相指挥工作。下面仍是虚构教学对白，不是在评价任何真实用户：</p>
+<ul>
+<li><strong>虚构用户：</strong>“我现在很烦，先别分析我。”</li>
+<li><strong>支持 agent：</strong>“好，不分析。研究部分仍按你已经定下的范围推进。”</li>
+<li><strong>另一种情况：</strong> 用户明显情绪波动但未说明是否要支持时，可问“要不要先聊聊这件事让你哪里不好受？不想聊也可以。”未认可就不开始；认可后只围绕其愿意讨论的内容，撤回就停，不诊断或代替治疗。</li>
+<li><strong>工作沟通：</strong> 若用户要给虚构导师写邮件，礼部帮助把事实、感受、需要和请求说清楚；不因此转给后宫做心理剖析。</li>
+</ul></article></details><details class="source"><summary>大内总管与御史：两种提醒，不混在一起</summary><article><ul>
+<li><strong>大内总管管生活与起居。</strong> 若没有近期运动记录，应说“我这里没有近期运动记录，不代表你没有运动”，而不是“你又不锻炼”。根据真实已知情况温和提醒，不指责、不诊断，也不自动增加监测任务。</li>
+<li><strong>御史管工作习惯。</strong> 在另一个虚构对白中，用户说“v3 还保留重复行5吧”，而 v3 明确要求排除行5。御史可说：“v3 写的是排除重复行5，与你刚才的理解不同。要不要一起核这句话，再决定下一步？”这有具体证据；用户没有回复、只是意见不同，都不能当成没仔细读。</li>
+<li>两者都不把提醒变成责备，也不替用户作决定。后宫的情绪支持仍先征得用户认可；工作沟通需要的非暴力沟通仍归礼部。</li>
+</ul></article></details><details class="source"><summary>易懂性检查：读者应能直接回答</summary><article><ol>
+<li>谁负责什么？三省分别起草、审核、派发；将军算数据也能画图，宰相只用已有结果画总结图。</li>
+<li>为什么换口径要找将军？“把两晚混在一起算”与“每晚各占一半”不是同一算法。</li>
+<li>谁判断写得清不清楚？礼部。谁核是否符合指定作者习惯？翰林院。</li>
+<li>v2 是否真的发出？没有。门下发现重复记录问题，退回中书改成 v3。</li>
+<li>这些数字证明外星人存在吗？不能；它们只是虚构的脉冲记录数。</li>
+</ol>
+<p>检查时应请读者从演示内容回答，而不是靠角色名称猜。能复述这五点只支持本例可理解，不代表真人用户测试或真实工作流已经验证。</p></article></details><details class="source"><summary>使用本例时的检查点</summary><article><p>中书起草、门下可退回、尚书调度是否分清？将军能分析和画图并管理计算平台、宰相不做数据分析的通用设定是否落实？顺序与每部的可见贡献是否保留？吏部是否覆盖 Dots、Main 及六部本身？是否真正判断了宰相可自行完成的部分？完整提示词与工兵复核是否绑定同一版本？新旧统计口径、示范回执与真实执行是否清楚分开？</p>
+<p>上述小表算术可在无网络的临时检查中复算；即使复算通过，也只验证这份虚构表的数值，不验证真实消息发送、图像渲染、平台集成或效率收益。</p></article></details><details class="source"><summary>通用角色与完整 Skill 规范</summary><article><h2>三省六部协作审议</h2>
+<p>这是 GooseResearch 的实验性特化 Skill 示例。借用官制名称作为协作视角，不复原历史制度，也不声称这套方法已经证明有效。它不自动安装、不强制新建六个 agent，不改变现有权限。</p>
+<p>在已选择这套审议方式的任务中，显式给用户各阶段的简短意见，随后提供完整提示词和复核结果。不要只在内部审过后交一条总意见。给出可核的事实、判断依据和建议摘要，不展示内部推理过程；同一助手的六个视角不等于六次独立验证。</p>
+<h3>通用角色与三省层级</h3>
+<p>三省负责工作流；六部提供按需调用的专业视角，参与不等于必须创建六个 agent。不要按历史官制自行增设权力。</p>
+<ul>
+<li><strong>中书省：起草。</strong> 结合任务需要召集六部代表，形成意见、分工建议与完整提示词草稿；收到门下的具体退回意见后修订。</li>
+<li><strong>门下省：审核。</strong> 召集必要的六部代表，审核准确版本的意见和提示词；指出具体问题、影响和通过条件，可打回中书省，不替执行者开工。</li>
+<li><strong>尚书省：调度。</strong> 根据通过的方案决定向哪些 agent 发送哪些完整提示词，保留授权与在途核对。仅要求写稿或评估时，不实际发送。分派后核送达、实际执行及验收。</li>
+<li><strong>翰林院：写作参照。</strong> 按需对照用户明确给出的作者、导师或其他写作参照，检查是否符合已知写作习惯；只依据可读范例或明确要求，不凭“大佬风格”猜测。它不属于六部，不增加审批权，不越过三省调度。未指定参照时不硬套风格。</li>
+<li><strong>将军：数据分析 agent，位于尚书省下。</strong> 能做数据分析，也能画图，直接管理获准使用的工作站等计算平台；承担数据、方法、计算及与分析紧密绑定的图。能力不等于新增资源或操作授权。</li>
+<li><strong>宰相：画图和决策 agent，位于尚书省下。</strong> 有轻量计算资源，可画总结图、更新已有图并统筹决策；不能做数据分析，不因表小或能运行代码而接管分析。沿用户保留的名称理解为“统筹决策但权力架空”：不能越过三省审核调度，自行向将军派发任务。</li>
+</ul>
+<p>两种执行角色是通用设定，不仅用于例子。示例可将 Main 映射为将军、Dots 映射为宰相；不要由名称推定真实平台能力。按实际任务决定谁画图，不把“将军只算数、所有图都归宰相”当硬分工。已有统计的展示与版式更新可归宰相；重新选择数据、改变统计口径、估计或推断交将军。</p>
+<h3>独立支持角色：后宫</h3>
+<p>后宫独立于三省六部执行链，可包含懂非暴力沟通和认知行为疗法（CBT）相关方法的支持 agent。注意到用户明显情绪波动时，只可温和提议是否需要支持；只有用户认可后才围绕其愿意讨论的内容分析。用户不认可、拒绝或撤回时就停止，不主动剖析，不把沉默当同意，也不因而阻挡工作。可从心理健康角度向用户提供支持性意见，但不诊断、不冒充治疗，也不替代专业帮助。</p>
+<p>当前版本不参与三省六部的执行，不向执行团队指手画脚，不将用户的情绪当作改任务、派发或扩大权限的依据。角色设定不自动创建服务、分享心理健康信息或调用真实 agent。工作及对外沟通需要的非暴力沟通，例如给导师写邮件，归礼部；不是交给后宫分析用户。</p>
+<h3>补充角色：大内总管与御史</h3>
+<ul>
+<li><strong>大内总管：生活习惯与起居照料。</strong> 关注有依据的运动、休息及其他生活习惯，值得提醒时温和说明，不指责、不诊断。未记录不等于没做，不能由单次事件推定稳定习惯。只用用户提供或已授权可读的信息，不自动增加监测、收集或共享。</li>
+<li><strong>御史：工作习惯与阅读核对。</strong> 关注提示词是否被仔细阅读，以及有证据的误解或误决策。指出具体原文、实际理解的差异和影响，温和建议核对；没有回复不等于没有读，不能由不同意见推定不认真。不指责，不凭猜测推断用户动机，也不因提醒擅自改派任务或替用户改决定。</li>
+</ul>
+<h3>先绑定这次任务</h3>
+<p>复用用户已经说明的目标、最新决定、允许范围、原负责人和已有证据。区分已有产物、正在执行、尚未执行及状态未知。先核同一工作是否在途或完成，不因记录缺失重新派发。只在缺项影响具体动作时补查；不要为形式重读全部材料。</p>
+<p>若原任务已有执行者，优先维护其职责与交接，不自动创建替代者。单独列出“交用户查看”和“向执行者发送”；要求写提示词不等于要求发送。</p>
+<h3>六部现行职责</h3>
+<div class="table-wrap"><table>
+<tr><th>视角</th><th>要作出的具体贡献</th><th>不应代替的事项</th></tr>
+<tr><td>兵部</td><td>列可能后续计划、接续路径、依赖与可并行项；复核交接对后续工作的影响。</td><td>不用未来计划覆盖用户已定方向，不把局部问题扩成整体停工。</td></tr>
+<tr><td>户部</td><td>核预算与资源，兼顾计算、排队、协调和反复试探成本；给足完成目标所需的合理资源。</td><td>不刻意追求绝对最小，不虚构成本上限，也不扩大已有费用授权。</td></tr>
+<tr><td>工部</td><td>核输入、工序、依赖、实现可行性与验收；分析异常的可能原因和替代解释，给可行修正；复核最终提示词。</td><td>不以“待核”代替方案，不把技术成功当科学或内容结论成立。</td></tr>
+<tr><td>吏部</td><td>核对六部及协调者、主负责人、其他 agent 的分工、负责范围和交接，找遗漏、重叠、越位与在途冲突。</td><td>不止核六部内部，不代替专业判断，不凭分配任务扩张执行权限。</td></tr>
+<tr><td>礼部</td><td>核各部是否讲清对象、术语、推理和证据，是否通俗易懂，负责工作及对外沟通中的非暴力沟通；检查空泛套话、无根据的拔高等“AI味儿”，再概括分歧、结论与下一步。</td><td>不只润色，不把文风检查冒充 AI 作者鉴定，不用顺畅措辞包装未成立的判断。</td></tr>
+<tr><td>刑部</td><td>监督事实、实际核查范围与对外表述是否一致；记录自查、纠错及改正证据。</td><td>不将未知写成已核、不将局部验收写成全链通过，不新增裁决、处罚或审批权。</td></tr>
+</table></div>
+<p>综合意见、审核与发送决策分别由中书、门下、尚书承接，不把宰相当三省之上的总调度。刑部贯穿事实和纠错检查，不另插一个固定审批环节。发现问题时显式给出纠错项；用户要求全部六部意见时，六部均可见，没有新增意见就如实说明，不凑重复段落。</p>
+<h3>将显式审议放入三省工作流</h3>
+<p><strong>兵部列可能后续计划 → 户部、工部先发表意见 → 吏部判断分工 → 礼部概括 → 发提示词 → 工部和兵部复核 → 必要时修订。意见复杂时，从“户部、工部先发表意见”再来一轮。</strong></p>
+<p>中书省负责下列第1–5步，门下省组织第6步审核；第7步有问题退回中书。通过后，尚书省再决定实际接收者和发送内容。这里“发提示词”是先交用户可读的完整稿，不自动等于已发给执行者，不能用“发出后再审核”跳过门下。</p>
+<ol>
+<li><strong>兵部计划。</strong> 说明目标之后有哪些接续路径、哪些可并行、哪些依赖用户决定或尚缺证据。已有方向不重新开放成无必要的可行性讨论。</li>
+<li><strong>户部、工部意见。</strong> 两部各自先给结论、依据、限制和建议。可以并行收集，但分别呈现，不抢先让用户阅读未经这两部审议的提示词初稿。</li>
+<li><strong>吏部分工。</strong> 指定每项工作的负责者、输入、交付和交接点；识别已有执行、跨 agent 重复及无人负责的缺口。分工既含六部，也含实际执行团队。</li>
+<li><strong>礼部概括。</strong> 将明确意见合成通俗、可判断的结论，解释必要术语并保留真实分歧；删掉空泛套话和不实拔高，检查“AI味儿”。含糊处退给相应部门补清，不转交给用户猜测。若有明确写作参照，可请翰林院另核作者习惯；二者不能互相冒充。</li>
+<li><strong>发提示词。</strong> 给用户一份完整、自包含且标明版本的文本，不让其拼接零碎补丁。此时尚未向执行者发送；门下通过后由尚书决定分派，且当前授权须覆盖具体执行者、内容与动作。清楚标记“已交用户／尚未发送”或可核的送达状态。</li>
+<li><strong>工部和兵部复核。</strong> 复核刚才实际交出的准确版本。工部检查实施、输入、约束和验收一致性；兵部检查后续计划、依赖和接续影响。复核不能替代发送前必需的权限及防重检查。</li>
+<li><strong>必要时修订。</strong> 给完整新版并列出变化；不要仅给几段让用户自己替换。若复杂分歧涉及资源、方法、分工或计划相互影响，携带新增证据与未决问题返回第2步，再依次判断、概括、发出与复核。若改变目标，先更新兵部计划再进入这轮。</li>
+</ol>
+<p>门下退回时写明问题、影响与解除条件，不只写“不通过”。中书修订后由门下复核准确新版；尚书不能将未经审核的旧稿替换成新执行令。</p>
+<p>每轮只解决会改变决定的问题。没有新证据或实质分歧时，不循环复述；在结论清楚、职责与验收可执行、必要授权齐备时收束并接续。确需用户选择时，提出一个具体决定及其影响，独立且已授权的工作继续。</p>
+<h3>完整提示词应保留什么</h3>
+<p>由尚书按接收者拆成各自完整、可执行的提示词，不让接收者拼接评论。按任务需要写全，不机械填空：</p>
+<ul>
+<li>目标、最新有效决定、范围和不做事项；</li>
+<li>对方实际环境内可读的必要来源、准确版本及缺项；</li>
+<li>已完成、在途、未做、未知的区别，以及不能重发或重跑的对象；</li>
+<li>负责者、可执行步骤、并行与依赖关系；</li>
+<li>输出、验证办法、完成条件和真正的停止／升级条件；</li>
+<li>当前授权边界与需另行决定的变更。</li>
+</ul>
+<p>给执行者的提示词应聚焦其任务，不把六部评论或冗长协调历史全部塞进去。发送后核资料可读、实际执行与验收；收到消息不等于开始，开始不等于完成。</p>
+<h3>已发版本的纠错</h3>
+<p>若只被要求评估已发送提示词，就只评估并给必要的候选修订，不自动再发、不重启或重复提交。若发现可能影响正在执行的实质错误，准确报告原版本、影响和建议；按现有授权与实际在途状态处理，不能假称改写草稿已撤销原指令。</p>
+<p>刑部纠错记录保留“原表述 → 可核事实与证据范围 → 更正 → 后续验证”。证据缺失标未知，不把登记一次问题当改正已闭合。</p>
+<h3>验证与范围</h3>
+<p>交付前核：顺序是否正确、各阶段是否可见、吏部是否覆盖实际多 agent 分工、提示词是否完整、工兵是否复核准确版本、门下是否能具体退回中书、尚书是否明确接收者与发送状态、复杂问题是否回到户工而非无限重启。报告实际完成的检查和仍未验证的能力。</p>
+<p>只在获得相应授权后执行发送、付费、发布、权限变化或其他外部动作。本 Skill 不能覆盖平台与项目的确认要求。公开示例只用通用方法和独立虚构素材，不复制私人来源、项目结果或操作标识。</p>
+<p>需要判断“交数据分析 agent（将军）还是由画图和决策 agent（宰相）自办”，或演练完整回复、修订与执行闭环时，读 <span class="source-ref">外星人研究：各部回复与执行示例</span>。需要原文对照、已读状态和审阅页面时，再用 <span class="source-ref">讨论、提纯、审核</span>，不要把本流程强加给该通用模式。</p>
+<p>本地可读演示：<span class="source-ref">三省六部独立示例页</span>。该页由本目录 <code>scripts/build_demo.py</code> 从当前规范与示例生成，不发送任务，也不发布网页。</p></article></details></section><footer class="boundary"><p><strong>验证边界：</strong>这是实验性协作规范与虚构教学示例，不宣称提高效率已获证明。单个助手呈现六种视角，不等于六个独立 agent 审核。文风检查也不能鉴定作者是否为 AI。</p><p>本页无服务连接、数据上传或真实派发功能。独立 HTML 可本地打开；是否已发布应以实际入口为准。</p><p><a href="three-provinces-six-ministries/SKILL.md">Skill 源文</a> · <a href="three-provinces-six-ministries/references/fictional-handoff.md">完整虚构例子</a> · <a href="discuss-distill-review.html">原通用讨论审核 demo</a></p></footer></main><script>
+const selectors = [...document.querySelectorAll('[data-case]')];
+selectors.forEach(button => button.addEventListener('click', () => {
+  selectors.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+  document.querySelectorAll('.case').forEach(panel => { panel.hidden = panel.id !== 'case-' + button.dataset.case; });
+  document.getElementById('scene-status').textContent = '当前：' + button.textContent;
+}));
+document.getElementById('expand-all').addEventListener('click', () => document.querySelectorAll('details.source').forEach(item => { item.open = true; }));
+document.getElementById('collapse-all').addEventListener('click', () => document.querySelectorAll('details.source').forEach(item => { item.open = false; }));
+</script></body></html>

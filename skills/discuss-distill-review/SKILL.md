@@ -78,3 +78,7 @@ untested devices explicitly. Verify publication only if authorized and actually 
 Do not claim cross-platform compatibility from a schema check or a single browser.
 
 Use [the fictional exercise](references/alien-exercise.md) for a small dry run.
+
+For an explicitly requested six-ministry collaboration and prompt-handoff review,
+use [the specialized example](../three-provinces-six-ministries/SKILL.md).
+Its visible sequence is not required for ordinary feedback organization.
