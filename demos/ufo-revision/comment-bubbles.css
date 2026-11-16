@@ -1,0 +1,61 @@
+/* Scoped to quote-comment launchers; does not style feedback forms. */
+.goose-comment-connectors {
+  position: fixed; inset: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 120;
+}
+.goose-comment-connectors path {
+  fill: none; stroke: #39714e; stroke-opacity: .35;
+  stroke-width: 1.4; vector-effect: non-scaling-stroke;
+}
+.goose-comment-launcher {
+  position: fixed; z-index: 122; inset: auto; margin: 0;
+  min-inline-size: 28px; min-block-size: 28px;
+  display: inline-grid; place-items: center; cursor: grab;
+  touch-action: none; user-select: none;
+  border: 1px solid #82a88d; border-radius: 999px; padding: 0 .3rem;
+  background: #e9f4eb; color: #284d38; font-size: 14px; line-height: 1;
+  box-shadow: 0 1px 3px #1d48231a;
+}
+.goose-comment-launcher:hover { background: #d9ebdf; }
+.goose-comment-launcher.goose-comment-dragging { cursor: grabbing; }
+.goose-comment-launcher.goose-comment-outside { visibility: hidden; }
+.goose-comment-popup {
+  position: fixed; z-index: 121; inset: auto; margin: 0;
+  box-sizing: border-box; inline-size: min(24rem, calc(100vw - 16px));
+  max-block-size: min(28rem, calc(100dvh - 16px)); overflow: auto;
+  overscroll-behavior: contain; padding: 0;
+  background: var(--goose-comment-bg, #fbfffc); color: var(--goose-comment-fg, #1e3325);
+  border: 1px solid var(--goose-comment-border, #7ea58a); border-radius: .6rem;
+  box-shadow: 0 .5rem 1.7rem #17362233;
+  overflow-wrap: anywhere;
+}
+.goose-comment-bar {
+  position: sticky; top: 0; z-index: 1; display: flex; flex-wrap: wrap;
+  justify-content: space-between; align-items: center; gap: .35rem;
+  padding: .45rem .7rem; background: var(--goose-comment-bg, #fbfffc);
+  border-bottom: 1px solid #d5e5d9;
+}
+.goose-comment-body { padding: .65rem .7rem; display: flow-root; }
+.goose-comment-bar button {
+  padding: .25rem .55rem; color: #284d38; border-radius: .45rem;
+  background: #e9f4eb; border: 1px solid #9ab6a1; font-size: .8rem;
+}
+.goose-comment-popup[hidden] { display: none !important; }
+.goose-comment-target {
+  background-color: var(--goose-comment-highlight, #dfefe4);
+  outline: 1px solid #82a88d70;
+  outline-offset: 1px;
+}
+.goose-comment-launcher:focus-visible, .goose-comment-popup :focus-visible {
+  outline: 2px solid var(--goose-comment-focus, #246141);
+  outline-offset: 2px;
+}
+
+/* Reserve a small gutter on the quote itself so the resting pin never covers words. */
+:where([data-goose-comment]) > [data-goose-comment-quote] {
+  margin-inline-end: 40px;
+}
+
+/* Diff color intentionally does not emphasize the new text with heavier type. */
+.revision-added { background:#e4f2e6;color:inherit;font-weight:inherit;padding:.08em .14em;border-radius:3px; }
+.revision-removed { background:#eceeec;color:#57615a;font-weight:inherit;padding:.08em .14em;border-radius:3px; }
