@@ -11,7 +11,7 @@
 .unread-change::before{content:"";width:.53rem;height:.53rem;background:#377b4d;border-radius:50%}
 .alignment-demo{margin-top:.85rem}.alignment-demo summary{cursor:pointer;font-size:.9rem}
 [hidden]{display:none!important}
-</style><style>.goose-local-reply{border-top:1px solid #d9e1e6;margin-top:.6rem;padding-top:.6rem}.goose-local-reply textarea{display:block;width:100%;box-sizing:border-box;margin:.3rem 0;font:inherit;resize:vertical}.goose-local-reply small{display:block}</style></head><body><main>
+.reply-time{display:block;font-size:12px;color:#58685e;overflow-wrap:anywhere;margin:.2rem 0}</style><style>.goose-local-reply{border-top:1px solid #d9e1e6;margin-top:.6rem;padding-top:.6rem}.goose-local-reply textarea{display:block;width:100%;box-sizing:border-box;margin:.3rem 0;font:inherit;resize:vertical}.goose-local-reply small{display:block}</style></head><body><main>
 <a href="index.html">← Systematic 模式：系统逐步修稿</a><p class="eyebrow">TO-DO MODE / FICTIONAL ALIEN EXAMPLE</p>
 <h1>To-do 模式：不是再读一遍。<br>只看这次需要你判断的变化。</h1>
 <p>反馈可以先提纯成一个可审核的问题，再保留原文对照作为依据。提纯不是删除原话、代替作者决定，也不是把尚未完成的工作包装成反馈。</p>
@@ -27,7 +27,7 @@
 <section class="card"><h2>实现约定与验收清单</h2><ul><li>来源 ID、内容版本、阅读状态、处理决定、执行状态分别存储；不能用一个“完成”覆盖全部。</li><li>保留原始顺序和来源锚点。每条提纯反馈都能回到原文位置，不只给一张无法核对的汇总表。</li><li>撤销必须恢复整次操作前状态；撤销后新操作清空重做分支。输入框保留自己的编辑历史。</li><li>本机保存不是身份认证或可靠备份。公开页面不要输入敏感内容；跨设备同步和导出要单独设计权限。</li><li>测试误点、连续撤销/重做、刷新恢复、存储不可用、键盘操作、手机布局和旧版本数据。</li></ul><p class="muted">本示例只演示已看标记与阅读序列，不自动修改正文、不收集真实反馈，也不把“看过”转换为批准。</p></section>
 <footer><a href="../../continuous-learning/writing-feedback.html">继续看反馈提纯的方法笔记</a> · <a href="../../PUBLICATION_POLICY.md">公开内容边界</a><p>公开示例应独立创作，不应仅给真实内容换名字后公开。</p></footer></main>
 <dialog id="reset-confirmation" aria-labelledby="reset-title"><h2 id="reset-title">重置这个 To-do 示例？</h2><p>仅将本示例的已看标记恢复为未读，筛选回到待审核。不影响 Systematic 模式或其他页面。确认后仍可在本次打开中撤销。</p><button id="reset-cancel" autofocus>取消，保留记录</button> <button id="reset-accept">确认重置</button></dialog>
-<script src="comment-bubbles.js?v=comment-bubbles1"></script><script src="reply-keyboard.js?v=1"></script>
+<script src="comment-bubbles.js?v=comment-bubbles1"></script><script src="reply-keyboard.js?v=1"></script><script src="reply-time.js?v=1"></script>
 <script src="comparison-rows.js?v=aligned-1"></script>
 <script>
 'use strict';
@@ -40,7 +40,7 @@ const items=[
 items.forEach(Object.freeze);Object.freeze(items);
 const replyKey='goose-fictional-inbox-replies-v1';
 let replies={};const replyDrafts=new Map();
-try{const stored=JSON.parse(localStorage.getItem(replyKey)||'{}');for(const i of items)if(Array.isArray(stored?.[i.id]))replies[i.id]=stored[i.id].filter(t=>typeof t==='string'&&t.length<=1200).slice(-30);}catch{}
+try{const stored=JSON.parse(localStorage.getItem(replyKey)||'{}');for(const i of items)if(Array.isArray(stored?.[i.id]))replies[i.id]=stored[i.id].map(GooseReplyTime.normalize).filter(Boolean).slice(-30);}catch{}
 let viewMode='cards';let commentBubbles=null;
 let seen={};let undoStack=[];let redoStack=[];let storageOK=true;
 try{const raw=JSON.parse(localStorage.getItem(key)||'{}');if(raw&&typeof raw==='object'&&!Array.isArray(raw))for(const i of items)if(raw[i.id]===true)seen[i.id]=true;}catch{storageOK=false;}
@@ -48,13 +48,13 @@ const escapeHTML=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 const copy=s=>({...s});
 function announce(message){document.getElementById('status').textContent=message+(storageOK?'':' 本机保存不可用，当前状态仅保留到关闭页面。');}
 function persist(){try{localStorage.setItem(key,JSON.stringify(seen));storageOK=true;}catch{storageOK=false;}}
-function replyList(id){return (replies[id]||[]).map(body=>'<p><strong>你的演示回复：</strong> '+escapeHTML(body)+'</p>').join('');}
+function replyList(id){return (replies[id]||[]).map(reply=>'<div><strong>你的演示回复：</strong> '+GooseReplyTime.html(reply.createdAt,document.documentElement.lang)+'<p>'+escapeHTML(reply.body)+'</p></div>').join('');}
 function replyForm(id){
  return '<div data-goose-local-replies="'+id+'">'+replyList(id)+'</div><form class="goose-local-reply" data-goose-reply-form="'+id+'"><label>写一条演示回复 <textarea rows="2" maxlength="1200" data-goose-reply-input required>'+escapeHTML(replyDrafts.get(id)||'')+'</textarea></label><small>仅保存在此浏览器，请勿填写私人信息。</small><p><button type="submit" aria-keyshortcuts="Meta+Enter" title="⌘+Enter">回复</button></p><p role="status" data-goose-reply-status></p></form>';
 }
 function commentPreview(i,side){
 const id='comment-'+viewMode+'-'+i.id+'-'+side;const quote=side==='original'?i.original:side==='summary'?i.answer:i.proposed;const change=side==='original'?' class="revision-removed"':side==='candidate'?' class="revision-added"':'';
-return '<div data-goose-comment="'+id+'"><p data-goose-comment-quote>'+(side==='summary'?'<strong>提纯后的回复：</strong>':'')+(change?'<mark'+change+'>'+escapeHTML(quote)+'</mark>':escapeHTML(quote))+'</p><button type="button" data-goose-comment-button aria-expanded="false" aria-controls="'+id+'-panel" aria-label="查看'+escapeHTML(i.title)+'的评论">💬</button><aside id="'+id+'-panel" data-goose-comment-panel hidden aria-label="'+escapeHTML(i.title)+'的评论"><div class="goose-comment-bar"><strong>原意见</strong><button type="button" data-goose-comment-close aria-label="关闭这段评论">关闭</button></div><div class="goose-comment-body"><blockquote>'+escapeHTML(i.feedback)+'</blockquote><p><strong>提纯后的回复：</strong>'+escapeHTML(i.answer)+'</p><p><strong>现在只需判断：</strong>'+escapeHTML(i.question)+'</p>'+replyForm(i.id)+'</div></aside></div>';
+return '<div data-goose-comment="'+id+'"><p data-goose-comment-quote>'+(side==='summary'?'<strong>提纯后的回复：</strong>':'')+(change?'<mark'+change+'>'+escapeHTML(quote)+'</mark>':escapeHTML(quote))+'</p><button type="button" data-goose-comment-button aria-expanded="false" aria-controls="'+id+'-panel" aria-label="查看'+escapeHTML(i.title)+'的评论">💬</button><aside id="'+id+'-panel" data-goose-comment-panel hidden aria-label="'+escapeHTML(i.title)+'的评论"><div class="goose-comment-bar"><strong>原意见</strong><button type="button" data-goose-comment-close aria-label="关闭这段评论">关闭</button></div><div class="goose-comment-body"><blockquote>'+escapeHTML(i.feedback)+'</blockquote><p><strong>提纯后的回复：</strong>'+escapeHTML(i.answer)+'</p>'+GooseReplyTime.html(null,document.documentElement.lang)+'<p><strong>现在只需判断：</strong>'+escapeHTML(i.question)+'</p>'+replyForm(i.id)+'</div></aside></div>';
 }
 function comparePassage(i){return '<div class="comparison"><div><strong>原文</strong>'+commentPreview(i,'original')+'</div><div><strong>候选 / 尚未批准</strong>'+commentPreview(i,'candidate')+'</div></div>';}
 function unreadChange(i){return !seen[i.id]&&i.type==='正文修改候选'?'<span class="unread-change">有更新 · 未读</span>':'';}
@@ -103,7 +103,7 @@ replyRoot.addEventListener('submit',event=>{
  const message=form.querySelector('[data-goose-reply-status]');
  if(!items.some(item=>item.id===id)||!body||body.length>1200){message.textContent='请写一条不超过 1200 字的回复。';return;}
  const list=replies[id]||[];if(list.length>=30){message.textContent='这条演示意见已达回复上限。';return;}
- const next={...replies,[id]:[...list,body]},encoded=JSON.stringify(next);
+ const next={...replies,[id]:[...list,{body,createdAt:new Date().toISOString()}]},encoded=JSON.stringify(next);
  try{localStorage.setItem(replyKey,encoded);if(localStorage.getItem(replyKey)!==encoded)throw Error('not saved');}
  catch{message.textContent='未确认保存，文字没有清空。';return;}
  replies=next;replyDrafts.delete(id);

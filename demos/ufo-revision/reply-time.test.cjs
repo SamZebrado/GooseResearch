@@ -1,0 +1,13 @@
+const assert=require('node:assert/strict');
+const t=require('./reply-time.js');
+assert.deepEqual(t.normalize('old reply'),{body:'old reply',createdAt:null});
+const stored={body:'new reply',createdAt:'2026-11-19T00:01:02.000Z'};
+assert.deepEqual(t.normalize(stored),stored);
+assert.match(t.html(stored.createdAt,'zh-CN'),/2026-11-19 08:01:02 · 上海 UTC\+8/);
+assert.match(t.html('2026-11-18T23:59:59Z','en'),/2026-11-19 07:59:59 · Shanghai/);
+for(const bad of [null,undefined,'','bad','2026-11-19','2026-11-19T12:00:00','1970-01-01T00:00:00.000Z'])assert.match(t.html(bad,'zh'),/时间未记录/);
+assert.match(t.html(null,'en'),/Time not recorded/);
+assert.equal(t.normalize('   '),null);
+assert.equal(t.normalize({body:'x',createdAt:'<script>'}).createdAt,null);
+const original=JSON.stringify(stored);t.html(stored.createdAt);assert.equal(JSON.stringify(stored),original);
+console.log('PASS: legacy preservation, per-reply ISO, UTC+8 boundary, unknown/invalid, English, nonmutation');
