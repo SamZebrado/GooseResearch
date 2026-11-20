@@ -30,7 +30,7 @@ function mount(initial, host) {
         assert.equal(id, 'dsh-goose-research');
         plugin = factory(p => { assert.equal(p, 'react'); return fakeReact; });
       } },
-      confirm: () => host?.confirm !== false,
+      confirm: (message) => { host?.consent?.push(message); return host?.confirm !== false; },
       setTimeout: (f, ms) => { if (!ms || ms < 5000) f(); return 1; },
       clearTimeout() {},
     },
@@ -181,7 +181,7 @@ function harness() {
     subscribe: fn => { listeners.add(fn); return () => listeners.delete(fn); },
   } };
   return {
-    sessionId, sent, target(id) { assert.equal(id, sessionId); return wrong ? { ...binding, sessionId: 'other' } : binding; },
+    sessionId, sent, consent: [], target(id) { assert.equal(id, sessionId); return wrong ? { ...binding, sessionId: 'other' } : binding; },
     switch() { wrong = true; }, listeners: () => listeners.size,
     accept: async () => { resolve({ ok: true, value: { accepted: true } }); await Promise.resolve(); },
     reject: async () => { resolve({ ok: false, error: {} }); await Promise.resolve(); },
@@ -247,4 +247,25 @@ test('optional handoff is inert without confirmation and does not import ambiguo
     assert.equal(h.sent.length, 1, scenario);
     assert.equal(h.listeners(), 0, scenario);
   }
+});
+
+
+test('UI and per-send confirmation disclose payload, current model route, and upstream log caveat; cancel writes nothing', () => {
+  const host = harness(), m = autoSetup(host);
+  const before = m.saved();
+  const disclosure = m.nodes(n => n.type === 'p').map(n => n.children.join('')).join('\n');
+  for (const term of [host.sessionId, '模型服务', '设备', '不附带弹幕', '使用官方模型 API 时上传会话日志', '不会阻止普通提示', '补传积压']) assert.ok(disclosure.includes(term), term);
+  host.confirm = false;
+  m.click(send);
+  assert.equal(host.sent.length, 0);
+  assert.equal(host.listeners(), 0);
+  assert.deepEqual(m.saved(), before);
+  for (const term of [host.sessionId, '完整当前稿', '全部 1 条', '不附带弹幕', '可能离开此设备', '官方 API', '尚未获接收', '会话日志', '重新开启可能补传积压', '取消不会发送', '手动导出']) assert.ok(host.consent[0].includes(term), term);
+  assert.ok(m.nodes(n => n.type === 'p' && n.props.role === 'status')[0].children[0].includes('未向会话发送'));
+  m.click('导出当前稿和意见');
+  assert.equal(host.sent.length, 0);
+  host.confirm = true;
+  m.click(send);
+  assert.equal(host.consent.length, 2);
+  assert.equal(host.sent.length, 1);
 });
