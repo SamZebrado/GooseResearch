@@ -1,6 +1,6 @@
 {
   "name": "dsh-goose-research",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Goose Revisions and Pause Log for DeepSeek Harness",
   "license": "GPL-3.0-only",
@@ -20,7 +20,8 @@
       "platform": "web",
       "inject": [
         "@deepseek-ai/dsh-client-runtime",
-        "@deepseek-ai/dsh-client-ui-slots"
+        "@deepseek-ai/dsh-client-ui-slots",
+        "@deepseek-ai/dsh-api-session-controller"
       ]
     }
   },
@@ -37,7 +38,7 @@
   },
   "engines": {
     "node": "^22.19 || >=24",
-    "dsh": ">=0.1.0-rc.6"
+    "dsh": ">=0.2.2-rc.5"
   },
   "keywords": [
     "dsh-plugin",

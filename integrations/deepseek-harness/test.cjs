@@ -7,7 +7,7 @@ const path = require('node:path');
 const { webcrypto } = require('node:crypto');
 const read = (p) => fs.readFileSync(path.join(__dirname, p), 'utf8');
 
-function mount(initial) {
+function mount(initial, host) {
   const states = [];
   const record = new Map(initial ? [['goose-research-dsh-v1', JSON.stringify(initial)]] : []);
   const fakeReact = {
@@ -17,10 +17,11 @@ function mount(initial) {
       if (!(i in states)) states[i] = typeof init === 'function' ? init() : init;
       return [states[i], (v) => { states[i] = v; }];
     },
-    useRef() { return { current: selection }; },
+    useRef(initial) { const i = cursor++; return states[i] ??= { current: initial }; },
+    useEffect(fn) { if (!cleanup) cleanup = fn(); },
     Fragment: Symbol('Fragment'),
   };
-  let cursor, plugin, view, slot, lastBlob, lastFile, sends = 0;
+  let cursor, plugin, view, slot, lastBlob, lastFile, cleanup, sends = 0;
   const selection = { selectionStart: 0, selectionEnd: 6 };
   const localStorage = { getItem: (k) => record.get(k) ?? null, setItem: (k, v) => record.set(k, v) };
   const ctx = {
@@ -29,8 +30,9 @@ function mount(initial) {
         assert.equal(id, 'dsh-goose-research');
         plugin = factory(p => { assert.equal(p, 'react'); return fakeReact; });
       } },
-      confirm: () => true,
-      setTimeout: (f) => f(),
+      confirm: () => host?.confirm !== false,
+      setTimeout: (f, ms) => { if (!ms || ms < 5000) f(); return 1; },
+      clearTimeout() {},
     },
     crypto: webcrypto, Date, Blob, localStorage,
     fetch() { sends++; throw Error('unexpected network'); },
@@ -40,9 +42,15 @@ function mount(initial) {
   vm.runInNewContext(read('client.js'), ctx, { filename: 'client.js' });
   plugin.apply({ slots: {
     inject: (name, fn) => { assert.equal(name, 'conversation.view'); fn(); },
-    register: (opts, render) => { slot = opts; view = render(); },
-  } });
-  function tree() { cursor = 0; return view.type(); }
+    register: (opts, render) => { slot = opts; view = render(opts.inject?.(host?.sessionId)); },
+  }, sessions: host ? { binding: id => host.target(id) } : undefined });
+  function tree() {
+    cursor = 0;
+    const root = view.type(view.props);
+    const editorElem = nodes(x => x.type === 'textarea' && x.props.ref, root)[0];
+    if (editorElem) editorElem.props.ref.current = selection;
+    return root;
+  }
   function nodes(predicate, x = tree()) {
     if (Array.isArray(x)) return x.flatMap(y => nodes(predicate, y));
     if (!x || typeof x !== 'object') return [];
@@ -59,14 +67,14 @@ function mount(initial) {
     elem.children[1].props.onChange({ target: { value } });
   }
   return { plugin, slot, click, fill, nodes, tree, selection, saved: () => JSON.parse(record.values().next().value),
-    download: async () => [lastFile, await lastBlob.text()], networkCalls: () => sends,
+    unmount: () => cleanup?.(), download: async () => [lastFile, await lastBlob.text()], networkCalls: () => sends,
   };
 }
 
 test('manifest, host and conversation view match the package identity', async () => {
   const p = JSON.parse(read('package.json'));
   const { inject } = mount().plugin;
-  assert.deepEqual([...inject], ['slots']);
+  assert.deepEqual([...inject], ['slots', 'sessions']);
   assert.equal(mount().slot.id, p.name);
   assert.equal(p.dsh.client.platform, 'web');
   for (const file of Object.values(p.exports)) assert.ok(read(file).length);
@@ -146,4 +154,97 @@ test('diary supports keyboard save, local date, Markdown export and separate sto
   assert.ok(body.endsWith('；<b>虚构记录</b>'));
   assert.equal(m.nodes(x => Object.hasOwn(x.props, 'dangerouslySetInnerHTML')).length, 0);
   assert.equal(m.networkCalls(), 0);
+});
+
+
+const send = '发到当前会话并等回复';
+const apply = '应用新稿和逐条回复';
+function harness() {
+  const sessionId = 'fiction-session';
+  let listeners = new Set(), entries = [], sent = [], wrong = false, rpc = 'fiction-rpc';
+  let resolve;
+  const session = {
+    sessionId, getSnapshot: () => ({ sessionId, openState: 'open', subagent: null, removed: false, running: false,
+      awaitingFirstTurn: false, pendingSubmissions: [] }),
+    beginSubmission: ({ mode, text, attachments }) => {
+      assert.equal(mode, 'queue'); assert.equal(attachments.length, 0);
+      return { requestId: rpc, abandon() {} };
+    },
+    prompt: (content, mode, signal, requestId) => {
+      assert.equal(mode, 'queue'); assert.equal(requestId, rpc); assert.equal(content.length, 1);
+      sent.push(content[0].text);
+      return new Promise(r => { resolve = r; });
+    },
+  };
+  const binding = { sessionId, session, eventSource: {
+    getSnapshot: () => ({ entries }),
+    subscribe: fn => { listeners.add(fn); return () => listeners.delete(fn); },
+  } };
+  return {
+    sessionId, sent, target(id) { assert.equal(id, sessionId); return wrong ? { ...binding, sessionId: 'other' } : binding; },
+    switch() { wrong = true; }, listeners: () => listeners.size,
+    accept: async () => { resolve({ ok: true, value: { accepted: true } }); await Promise.resolve(); },
+    reject: async () => { resolve({ ok: false, error: {} }); await Promise.resolve(); },
+    event(type, data, transient = false) {
+      const seq = entries.filter(x => x.type === 'event').length + 1;
+      entries.push({ type: transient ? 'transient' : 'event', event: { type, data, seq } });
+      for (const l of listeners) l();
+    },
+    request() { return JSON.parse(sent[0].split('\n\n')[1]); },
+    match(turn = 1) { this.event('user/message', { source: { kind: 'user', rpcId: rpc }, content: [{type:'text',text:sent[0]}], turn }); },
+    answer(turn = 1, changed = {}, interrupted = false) {
+      const req = this.request();
+      const data = { ...req.responseShape, revisedText: 'fiction edits', ...changed };
+      this.event('assistant/message', { turn, step: 1, interrupted, message: { content: [{ type:'text', text: JSON.stringify(data) }] } });
+    },
+  };
+}
+function autoSetup(host) {
+  const m = mount(undefined, host);
+  m.click('弹幕记录'); m.fill('写一条（Ctrl / Cmd + Enter 保存）', 'DIARY-NEVER-TRANSMIT'); m.click('保存记录');
+  m.click('大鹅改稿'); m.click('载入虚构示例'); m.click('引用选中文本');
+  m.fill(note, 'fiction note'); m.click('添加意见');
+  assert.equal(m.nodes(x => x.type === 'button' && x.children[0] === send).length, 0);
+  m.nodes(x => x.type === 'input' && x.props.type === 'checkbox')[0].props.onChange({ target: {checked:true} });
+  return m;
+}
+const hasPreview = m => m.nodes(x => x.type === 'button' && x.children[0] === apply).length > 0;
+test('optional handoff sends once, excludes diary, ignores unrelated/transient replies, waits for matched completed turn and only previews', async () => {
+  const host = harness(), m = autoSetup(host);
+  const event = m.nodes(x => x.type === 'button' && x.children[0] === send)[0].props.onClick;
+  event(); event();
+  assert.equal(host.sent.length, 1); assert.ok(!host.sent[0].includes('DIARY-NEVER-TRANSMIT'));
+  host.event('turn/start', { turn: 1 }); host.event('user/message', { source: { kind:'user', rpcId: 'unrelated' } });
+  host.answer(1); host.event('turn/end', { turn: 1, reason: {kind:'completed'} });
+  host.event('turn/start', { turn: 2 }); host.match(2); host.event('assistant/live-chunk', { turn: 2 }, true);
+  await host.accept();
+  assert.equal(hasPreview(m), false);
+  host.answer(2);
+  assert.equal(hasPreview(m), false);
+  host.event('turn/end', { turn: 2, reason: {kind:'completed'} });
+  assert.equal(hasPreview(m), true);
+  assert.ok(!m.saved().after.includes('fiction edits'));
+  m.click(apply); assert.equal(m.saved().after, 'fiction edits');
+  assert.equal(host.listeners(), 0);
+});
+test('optional handoff is inert without confirmation and does not import ambiguous, stale, cancelled or mismatched responses', async () => {
+  { const h = harness(), m = autoSetup(h); h.confirm = false; m.click(send); assert.equal(h.sent.length, 0); }
+  for (const scenario of ['multiple', 'other-user', 'cancel', 'wrong-batch', 'edited', 'switch', 'unmount', 'reject', 'local-stop', 'interrupted', 'malformed', 'no-answer']) {
+    const h = harness(), m = autoSetup(h);
+    m.click(send);
+    if (scenario === 'reject') await h.reject(); else await h.accept();
+    if (scenario === 'unmount') m.unmount();
+    if (scenario === 'local-stop') m.click('停止等候（不撤回已发送消息）');
+    if (scenario === 'edited') m.fill(draft, 'another version');
+    if (scenario === 'switch') h.switch();
+    h.event('turn/start', { turn:1 }); h.match();
+    if (scenario === 'other-user') h.event('user/message', { source:{kind:'user',rpcId:'other'} });
+    if (scenario === 'malformed') h.event('assistant/message', {turn:1,step:1,message:{content:[{ type:'text', text:'not-json' }]}});
+    else if (scenario !== 'no-answer') h.answer(1, scenario === 'wrong-batch' ? {batchId:'wrong'} : {}, scenario === 'interrupted');
+    if (scenario === 'multiple') h.answer(1);
+    h.event('turn/end', {turn:1, reason:{kind: scenario === 'cancel' ? 'aborted' : 'completed'}});
+    assert.equal(hasPreview(m), false, scenario);
+    assert.equal(h.sent.length, 1, scenario);
+    assert.equal(h.listeners(), 0, scenario);
+  }
 });
